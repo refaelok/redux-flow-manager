@@ -1,0 +1,10 @@
+/node_modules
+npm-debug.log
+.DS_Store
+package-lock.json
+# IntelliJ
+*.iml
+/.idea
+/.vscode/launch.json
+boardGamesScanResults/
+dist
