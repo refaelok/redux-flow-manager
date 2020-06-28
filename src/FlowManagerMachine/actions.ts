@@ -10,12 +10,12 @@ export const onCheck = (context: any, event: any, onCheckHandler: Function) => {
 	return onCheckHandler(context, event);
 };
 
-export const onCheckError = (context: any) => new Promise((resolve) => {
+export const onCheckError = (context: any, event: any) => new Promise((resolve) => {
 	context.error = true;
 	return resolve();
 });
 
-export const onCheckDone = (context: any) => {
+export const onCheckDone = (context: any, event: any) => {
 	return new Promise((resolve) => {
 		console.log('Check Flow Done for flow: ', context.currentFlowState, ' with Error: ', context.error);
 		return resolve();

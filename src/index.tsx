@@ -1,35 +1,8 @@
-import { Machine, interpret } from 'xstate';
-import { createFlows } from './creators';
-import { onFinal } from './actions';
+import FlowMachine from './FlowManagerMachine';
 import { flowsConfig } from '../config';
 
-const flows = createFlows(flowsConfig);
+const flowMachine = new FlowMachine(flowsConfig);
 
-if (flowsConfig && flowsConfig.length) {
-	const config = {
-		id: 'FlowManager',
-		initial: `${flowsConfig[0].flowName}Flow`,
-		context: {
-			currentFlowState: null,
-			error: false
-		},
-		states: {
-			...flows,
-			final: {
-				id: 'final',
-				type: 'final',
-				invoke: {
-					id: 'final',
-					src: onFinal
-				}
-			}
-		}
-	};
-
-	const stateMachine = Machine(config);
-	debugger;
-
-	const service = interpret(stateMachine);
-
-	service.start();
+if (flowMachine.service) {
+	flowMachine.service.start();
 }

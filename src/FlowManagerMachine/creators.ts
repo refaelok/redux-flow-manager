@@ -1,19 +1,11 @@
+import { Condition, FlowsConfig, MachineContext } from './interface';
 import {
 	onCheck,
 	onCheckStart,
 	onCheckDone,
-	onCheckError
+	onCheckError,
+	onFinal,
 } from './actions';
-
-interface Flow {
-	flowName: string;
-	conditions: Array<Condition>;
-}
-
-interface Condition {
-	conditionName: string;
-	onCheck: Function;
-}
 
 export const createCondition = (conditionName: string, onCheckHandler: Function) => {
 	return {
@@ -24,7 +16,7 @@ export const createCondition = (conditionName: string, onCheckHandler: Function)
 				check: {
 					invoke: {
 						id: conditionName,
-						src: (context: any, event: any) => onCheck(context, event, onCheckHandler),
+						src: (context: MachineContext, event: any) => onCheck(context, event, onCheckHandler),
 						onDone: 'done',
 						onError: 'error'
 					},
@@ -32,7 +24,7 @@ export const createCondition = (conditionName: string, onCheckHandler: Function)
 				error: {
 					invoke: {
 						id: 'error',
-						src: (context: any, event: any) => onCheckError(context, event),
+						src: (context: MachineContext, event: any) => onCheckError(context, event),
 						onDone: 'done'
 					}
 				},
@@ -63,7 +55,7 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 				checkStart: {
 					invoke: {
 						id: `${flowName}Start`,
-						src: (context: any, event: any) => onCheckStart(context, event, flowName),
+						src: (context: MachineContext, event: any) => onCheckStart(context, event, flowName),
 						onDone: 'checkFlow'
 					}
 				},
@@ -85,7 +77,7 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 	};
 };
 
-export const createFlows = (flowsConfig: Array<Flow>) => {
+export const createFlows = (flowsConfig: FlowsConfig) => {
 	const flows = flowsConfig.map((flow, index) => {
 		let nextFlowName;
 
@@ -97,4 +89,28 @@ export const createFlows = (flowsConfig: Array<Flow>) => {
 	});
 
 	return Object.assign({}, ...flows);
+};
+
+export const createMachineConfig = (flowsConfig: FlowsConfig) => {
+	const flows = createFlows(flowsConfig);
+
+	return {
+		id: 'FlowManager',
+		initial: `${flowsConfig[0].flowName}Flow`,
+		context: {
+			currentFlowState: null,
+			error: false
+		},
+		states: {
+			...flows,
+			final: {
+				id: 'final',
+				type: 'final',
+				invoke: {
+					id: 'final',
+					src: onFinal
+				}
+			}
+		}
+	};
 };
