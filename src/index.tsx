@@ -9,7 +9,10 @@ if (flowsConfig && flowsConfig.length) {
 	const config = {
 		id: 'FlowManager',
 		initial: `${flowsConfig[0].flowName}Flow`,
-		context: { currentFlowState: null },
+		context: {
+			currentFlowState: null,
+			error: false
+		},
 		states: {
 			...flows,
 			final: {
