@@ -1,4 +1,4 @@
-import { Condition, FlowsConfig, MachineContext } from './interface';
+import { Condition, FlowsConfig, MachineContext } from './types';
 import {
 	onCheck,
 	onCheckStart,
@@ -7,7 +7,7 @@ import {
 	onFinal,
 } from './actions';
 
-export const createCondition = (conditionName: string, onCheckHandler: Function) => {
+export const createCondition = (conditionName: string, onCheckHandler: Function, mandatory?: boolean) => {
 	return {
 		[conditionName]: {
 			id: conditionName,
@@ -24,7 +24,7 @@ export const createCondition = (conditionName: string, onCheckHandler: Function)
 				error: {
 					invoke: {
 						id: 'error',
-						src: (context: MachineContext, event: any) => onCheckError(context, event),
+						src: (context: MachineContext, event: any) => onCheckError(context, event, mandatory),
 						onDone: 'done'
 					}
 				},
@@ -38,7 +38,8 @@ export const createCondition = (conditionName: string, onCheckHandler: Function)
 
 export const createConditions = (conditions: Array<Condition>) => {
 	const createdConditions = conditions.map((condition) => {
-		return createCondition(condition.conditionName, condition.onCheck);
+		const { conditionName, onCheck: onCheckCallback, mandatory } = condition;
+		return createCondition(conditionName, onCheckCallback, mandatory);
 	});
 
 	return Object.assign({}, ...createdConditions);
@@ -98,7 +99,7 @@ export const createMachineConfig = (flowsConfig: FlowsConfig) => {
 		id: 'FlowManager',
 		initial: `${flowsConfig[0].flowName}Flow`,
 		context: {
-			currentFlowState: null,
+			currentFlowToCheck: '',
 			error: false
 		},
 		states: {
