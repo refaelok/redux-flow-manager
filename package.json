@@ -12,7 +12,12 @@
     "serve": "poi --serve",
     "dev": "npm run serve",
     "start": "npm-run-all --parallel lint:watch dev",
-    "test": "poi --serve ./test/index.ts"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:browser": "poi --serve ./test/flowManger.browser.ts"
+  },
+  "jest": {
+    "preset": "ts-jest"
   },
   "keywords": [
     "redux",
@@ -34,6 +39,7 @@
     "@babel/plugin-proposal-decorators": "7.8.3",
     "@babel/preset-env": "7.1.6",
     "@babel/preset-react": "7.0.0",
+    "@babel/preset-typescript": "7.10.1",
     "@babel/register": "7.0.0",
     "@poi/plugin-typescript": "12.3.1",
     "@types/expect-puppeteer": "2.2.1",
@@ -53,6 +59,7 @@
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4.0.2",
     "eslint-watch": "6.0.1",
+    "jest": "26.1.0",
     "npm-run-all": "latest",
     "poi": "12.8.0",
     "redux-devtools-extension": "2.13.8",

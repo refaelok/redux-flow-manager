@@ -2,6 +2,7 @@ module.exports = {
 	presets: [
 		"react-app",
 		"poi/babel",
+		"@babel/preset-typescript",
 		"@babel/preset-env",
 		"@babel/preset-react"
 	],

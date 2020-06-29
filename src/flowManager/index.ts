@@ -58,7 +58,16 @@ export default class FlowManagerAPI {
 		});
 	}
 
-	public getSubFlows() {
+	/* Selectors */
+	public getFlowType() {
+		return StoreAPI.getFlowType();
+	}
+
+	public getSubFlowTypes() {
 		return StoreAPI.getSubFlows();
+	}
+
+	public getCurrentStep() {
+		return StoreAPI.getCurrentStep();
 	}
 }

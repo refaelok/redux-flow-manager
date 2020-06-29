@@ -1,6 +1,7 @@
 import { Store } from 'redux';
 import {
 	flowTypesSelector,
+	getCurrentStepSelector,
 	subFlowTypesSelector
 } from './selectors';
 import {
@@ -34,6 +35,10 @@ class StoreAPI {
 
 	public getSubFlows() {
 		return subFlowTypesSelector(this.getFlowManagerState());
+	}
+
+	public getCurrentStep() {
+		return getCurrentStepSelector(this.getFlowManagerState());
 	}
 
 	/* Actions */

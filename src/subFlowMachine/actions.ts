@@ -3,7 +3,7 @@ import StoreAPI from '../store';
 
 export const onCheckStart = (context: SubFlowMachineContext, event: any, flowName: string) => {
 	return new Promise((resolve) => {
-		context.currentFlowToCheck = `${flowName}Flow`;
+		context.currentFlowToCheck = flowName;
 		context.error = false;
 		return resolve();
 	});

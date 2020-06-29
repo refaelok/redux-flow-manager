@@ -49,13 +49,13 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 	const states = createConditions(conditions);
 
 	return {
-		[`${flowName}Flow`]: {
-			id: `${flowName}Flow`,
+		[flowName]: {
+			id: flowName,
 			initial: 'checkStart',
 			states: {
 				checkStart: {
 					invoke: {
-						id: `${flowName}Start`,
+						id: flowName,
 						src: (context: SubFlowMachineContext, event: any) => onCheckStart(context, event, flowName),
 						onDone: 'checkFlow'
 					}
@@ -70,7 +70,7 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 					invoke: {
 						id: `${flowName}Done`,
 						src: (context: any, event: any) => onCheckDone(context, event),
-						onDone: nextFlowName ? `#${nextFlowName}Flow` : '#final'
+						onDone: nextFlowName ? `#${nextFlowName}` : '#final'
 					}
 				},
 			}
@@ -97,7 +97,7 @@ export const createMachineConfig = (flowsConfig: SubFlowsConfig) => {
 
 	return {
 		id: 'FlowManager',
-		initial: `${flowsConfig[0].flowName}Flow`,
+		initial: flowsConfig[0].flowName,
 		context: {
 			currentFlowToCheck: '',
 			error: false
