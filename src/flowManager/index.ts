@@ -28,7 +28,7 @@ export default class FlowManagerAPI {
 		StoreAPI.endFlow();
 	}
 
-	public UpdateCurrentStep(currentStep: string) {
+	public updateCurrentStep(currentStep: string) {
 		const { service } = this.subFlowMachine;
 
 		service.stop();
@@ -36,6 +36,10 @@ export default class FlowManagerAPI {
 		// TODO: Update current steps in store
 
 		service.start();
+	}
+
+	public getNextStep() {
+		// TODO: Get Next Step
 	}
 
 	public calculateSubFlowTypes() {
