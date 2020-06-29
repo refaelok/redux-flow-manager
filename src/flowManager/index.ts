@@ -9,20 +9,31 @@ export default class FlowManagerAPI {
 		this.subFlowMachine = new SubFlowMachine(flowsConfig);
 	}
 
-	public startFlow() {
-
-	}
-
-	public endFlow() {
-
-	}
-
-	public setFlowType(flowType: string) {
+	public startFlow(flowType: string, currentPage?: string) {
 		const { service } = this.subFlowMachine;
 
 		service.stop();
 
-		StoreAPI.setFlowType(flowType);
+		StoreAPI.startFlow(flowType, currentPage);
+
+		service.start().onDone(() => {
+			// TODO: Calculate pages information
+		});
+	}
+
+	public endFlow() {
+		const { service } = this.subFlowMachine;
+
+		service.stop();
+		StoreAPI.endFlow();
+	}
+
+	public UpdateCurrentPage(currentPage: string) {
+		const { service } = this.subFlowMachine;
+
+		service.stop();
+
+		// TODO: Update current page in store
 
 		service.start();
 	}

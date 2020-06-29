@@ -83,8 +83,8 @@ const store = createStore(rootReducer, devToolsEnhancer({}));
 /** * Create and test Flow Manager API ** */
 const flowManagerAPI = CreateFlowManagerAPI(store, 'flowManager', flowsConfig);
 
-// Test - Set Flow Type
-flowManagerAPI.setFlowType('COP');
+// Test - Start Flow
+flowManagerAPI.startFlow('COP', 'DEVICE_GALLERY');
 
 // Test - Update store only if there is changes
 console.log('Test - Update store only if there is changes before: ', flowManagerAPI.getSubFlows());
@@ -95,3 +95,7 @@ for (let i = 0; i < 10; i += 1) {
 		});
 	}, 200);
 }
+
+// Test - End Flow
+flowManagerAPI.endFlow();
+

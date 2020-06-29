@@ -3,7 +3,8 @@ import _ from 'lodash';
 import {
 	FlowManagerState,
 	FlowManagerActionTypes,
-	ADD_FLOW_TYPE,
+	START_FLOW_TYPE,
+	END_FLOW_TYPE,
 	ADD_SUB_FLOW_TYPE,
 	REMOVE_SUB_FLOW_TYPE
 } from './types';
@@ -21,10 +22,15 @@ export function flowManagerReducer(
 	action: FlowManagerActionTypes
 ): FlowManagerState {
 	switch (action.type) {
-		case ADD_FLOW_TYPE: {
+		case START_FLOW_TYPE: {
+			const { flowType, currentPage = '' } = action.payload;
 			const newState = { ...state };
-			newState.flowType = action.payload;
+			newState.flowType = flowType;
+			newState.currentPage = currentPage;
 			return newState;
+		}
+		case END_FLOW_TYPE: {
+			return { ...initialState };
 		}
 		case ADD_SUB_FLOW_TYPE: {
 			const newState = { ...state };

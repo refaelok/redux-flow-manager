@@ -1,14 +1,24 @@
 import {
-	ADD_FLOW_TYPE,
+	START_FLOW_TYPE,
+	END_FLOW_TYPE,
 	ADD_SUB_FLOW_TYPE,
 	REMOVE_SUB_FLOW_TYPE,
 	FlowManagerActionTypes
 } from './types';
 
-export function addFlowType(subFlowType: string): FlowManagerActionTypes {
+export function startFlow(flowType: string, currentPage?: string): FlowManagerActionTypes {
 	return {
-		type: ADD_FLOW_TYPE,
-		payload: subFlowType
+		type: START_FLOW_TYPE,
+		payload: {
+			flowType,
+			currentPage
+		}
+	};
+}
+
+export function endFlow(): FlowManagerActionTypes {
+	return {
+		type: END_FLOW_TYPE
 	};
 }
 
