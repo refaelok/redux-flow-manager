@@ -1,7 +1,7 @@
-import { MachineContext } from './types';
+import { SubFlowMachineContext } from './types';
 import StoreAPI from '../store';
 
-export const onCheckStart = (context: MachineContext, event: any, flowName: string) => {
+export const onCheckStart = (context: SubFlowMachineContext, event: any, flowName: string) => {
 	return new Promise((resolve) => {
 		context.currentFlowToCheck = `${flowName}Flow`;
 		context.error = false;
@@ -9,18 +9,20 @@ export const onCheckStart = (context: MachineContext, event: any, flowName: stri
 	});
 };
 
-export const onCheck = (context: MachineContext, event: any, onCheckHandler: Function) => {
+export const onCheck = (context: SubFlowMachineContext, event: any, onCheckHandler: Function) => {
 	return onCheckHandler(context, event);
 };
 
-export const onCheckError = (context: MachineContext, event: any, mandatory?: boolean) => new Promise((resolve) => {
+export const onCheckError = (
+	context: SubFlowMachineContext, event: any, mandatory?: boolean
+) => new Promise((resolve) => {
 	if (mandatory !== false) {
 		context.error = true;
 	}
 	return resolve();
 });
 
-export const onCheckDone = (context: MachineContext, event: any) => {
+export const onCheckDone = (context: SubFlowMachineContext, event: any) => {
 	return new Promise((resolve) => {
 		const { currentFlowToCheck, error } = context;
 		const subFlows = StoreAPI.getSubFlows();
@@ -39,7 +41,7 @@ export const onCheckDone = (context: MachineContext, event: any) => {
 	});
 };
 
-export const onFinal = (context: MachineContext) => {
+export const onFinal = (context: SubFlowMachineContext) => {
 	context.currentFlowToCheck = '';
 	context.error = false;
 };

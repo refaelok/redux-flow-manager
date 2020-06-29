@@ -1,11 +1,11 @@
-export type FlowsConfig = Array<Flow>;
+export type SubFlowsConfig = Array<SubFlow>;
 
-export interface MachineContext {
+export interface SubFlowMachineContext {
 	currentFlowToCheck: string;
 	error: boolean;
 }
 
-export interface Flow {
+export interface SubFlow {
 	flowName: string;
 	conditions: Array<Condition>;
 }

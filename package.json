@@ -27,7 +27,6 @@
     "xstate": "4.10.0"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.157",
     "@babel/cli": "7.8.4",
     "@babel/core": "7.9.6",
     "@babel/node": "7.8.7",
@@ -40,6 +39,7 @@
     "@types/expect-puppeteer": "2.2.1",
     "@types/jest": "22.2.3",
     "@types/jest-environment-puppeteer": "2.2.0",
+    "@types/lodash": "4.14.157",
     "@types/node": "13.13.5",
     "@types/puppeteer": "1.2.3",
     "@typescript-eslint/eslint-plugin": "2.33.0",
@@ -55,6 +55,7 @@
     "eslint-watch": "6.0.1",
     "npm-run-all": "latest",
     "poi": "12.8.0",
+    "redux-devtools-extension": "2.13.8",
     "rimraf": "2.6.2",
     "sass-loader": "8.0.2",
     "ts-jest": "26.0.0",

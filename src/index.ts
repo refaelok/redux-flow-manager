@@ -1,10 +1,10 @@
 import { Store } from 'redux';
 import StoreAPI from './store';
 import FlowManagerAPI from './flowManager';
-import { FlowsConfig } from './machine/types';
+import { SubFlowsConfig } from './subFlowMachine/types';
 
 export { flowManagerReducer } from './store/reducer';
-export default (store: Store, sliceName: string, flowsConfig: FlowsConfig) => {
+export default (store: Store, sliceName: string, flowsConfig: SubFlowsConfig) => {
 	if (!store || !sliceName || !flowsConfig) {
 		throw new Error(`store, sliceName and flowsConfig are mandatory to create FlowManagerAPI. 
 			Please check the parameters you sent.`);

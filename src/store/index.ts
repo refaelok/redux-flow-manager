@@ -1,6 +1,7 @@
 import { Store } from 'redux';
 import { subFlowTypesSelector } from './selectors';
 import {
+	addFlowType,
 	addSubFlowType,
 	removeSubFlowType
 } from './actions';
@@ -20,6 +21,10 @@ class StoreAPI {
 
 	private dispatch(action: any) {
 		this.store.dispatch(action);
+	}
+
+	public setFlowType(flowType: string) {
+		this.dispatch(addFlowType(flowType));
 	}
 
 	public getSubFlows() {

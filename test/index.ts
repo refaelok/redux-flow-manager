@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from 'redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 import CreateFlowManagerAPI, { flowManagerReducer } from '../src';
 
 /** * Conditions ** */
@@ -77,18 +78,20 @@ const rootReducer = combineReducers({
 	flowManager: flowManagerReducer
 });
 
-// eslint-disable-next-line no-underscore-dangle
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(rootReducer, devToolsEnhancer({}));
 
 /** * Create and test Flow Manager API ** */
 const flowManagerAPI = CreateFlowManagerAPI(store, 'flowManager', flowsConfig);
+
+// Test - Set Flow Type
+flowManagerAPI.setFlowType('COP');
 
 // Test - Update store only if there is changes
 console.log('Test - Update store only if there is changes before: ', flowManagerAPI.getSubFlows());
 for (let i = 0; i < 10; i += 1) {
 	setTimeout(() => {
 		flowManagerAPI.calculateSubFlowTypes().then((subFlows) => {
-			console.log('Calculate ', i, flowManagerAPI.getSubFlows());
+			console.log('Calculate ', i + 1, flowManagerAPI.getSubFlows());
 		});
-	}, 0);
+	}, 200);
 }

@@ -1,5 +1,6 @@
-export const ADD_SUB_FLOW_TYPE = '@flowManager/ADD_SUB_FLOW_TYPE';
-export const REMOVE_SUB_FLOW_TYPE = '@flowManager/REMOVE_SUB_FLOW_TYPE';
+export const ADD_FLOW_TYPE = '@@redux-flow-manager/ADD_FLOW_TYPE';
+export const ADD_SUB_FLOW_TYPE = '@@redux-flow-manager/ADD_SUB_FLOW_TYPE';
+export const REMOVE_SUB_FLOW_TYPE = '@@redux-flow-manager/REMOVE_SUB_FLOW_TYPE';
 
 export interface FlowManagerState {
 	currentPage: string;
@@ -7,6 +8,11 @@ export interface FlowManagerState {
 	flowType: string;
 	subFlowTypes: Array<string>;
 	pages: Array<string>;
+}
+
+interface AddFlowTypeAction {
+	type: typeof ADD_FLOW_TYPE;
+	payload: string;
 }
 
 interface AddSubFlowTypeAction {
@@ -19,4 +25,4 @@ interface RemoveSubFlowTypeAction {
 	payload: string;
 }
 
-export type FlowManagerActionTypes = AddSubFlowTypeAction | RemoveSubFlowTypeAction;
+export type FlowManagerActionTypes = AddSubFlowTypeAction | RemoveSubFlowTypeAction | AddFlowTypeAction;

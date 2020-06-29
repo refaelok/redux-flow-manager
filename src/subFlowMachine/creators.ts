@@ -1,4 +1,4 @@
-import { Condition, FlowsConfig, MachineContext } from './types';
+import { Condition, SubFlowsConfig, SubFlowMachineContext } from './types';
 import {
 	onCheck,
 	onCheckStart,
@@ -16,7 +16,7 @@ export const createCondition = (conditionName: string, onCheckHandler: Function,
 				check: {
 					invoke: {
 						id: conditionName,
-						src: (context: MachineContext, event: any) => onCheck(context, event, onCheckHandler),
+						src: (context: SubFlowMachineContext, event: any) => onCheck(context, event, onCheckHandler),
 						onDone: 'done',
 						onError: 'error'
 					},
@@ -24,7 +24,7 @@ export const createCondition = (conditionName: string, onCheckHandler: Function,
 				error: {
 					invoke: {
 						id: 'error',
-						src: (context: MachineContext, event: any) => onCheckError(context, event, mandatory),
+						src: (context: SubFlowMachineContext, event: any) => onCheckError(context, event, mandatory),
 						onDone: 'done'
 					}
 				},
@@ -56,7 +56,7 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 				checkStart: {
 					invoke: {
 						id: `${flowName}Start`,
-						src: (context: MachineContext, event: any) => onCheckStart(context, event, flowName),
+						src: (context: SubFlowMachineContext, event: any) => onCheckStart(context, event, flowName),
 						onDone: 'checkFlow'
 					}
 				},
@@ -78,7 +78,7 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 	};
 };
 
-export const createFlows = (flowsConfig: FlowsConfig) => {
+export const createFlows = (flowsConfig: SubFlowsConfig) => {
 	const flows = flowsConfig.map((flow, index) => {
 		let nextFlowName;
 
@@ -92,7 +92,7 @@ export const createFlows = (flowsConfig: FlowsConfig) => {
 	return Object.assign({}, ...flows);
 };
 
-export const createMachineConfig = (flowsConfig: FlowsConfig) => {
+export const createMachineConfig = (flowsConfig: SubFlowsConfig) => {
 	const flows = createFlows(flowsConfig);
 
 	return {
