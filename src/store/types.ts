@@ -6,16 +6,16 @@ export const REMOVE_SUB_FLOW_TYPE = '@@redux-flow-manager/REMOVE_SUB_FLOW_TYPE';
 export interface FlowManagerState {
 	flowType: string;
 	subFlowTypes: Array<string>;
-	currentPage: string;
-	nextPage: string;
-	pages: Array<string>;
+	currentStep: string;
+	nextStep: string;
+	steps: Array<string>;
 }
 
 interface StartFlowTypeAction {
 	type: typeof START_FLOW_TYPE;
 	payload: {
 		flowType: string;
-		currentPage?: string;
+		currentStep?: string;
 	};
 }
 

@@ -6,12 +6,12 @@ import {
 	FlowManagerActionTypes
 } from './types';
 
-export function startFlow(flowType: string, currentPage?: string): FlowManagerActionTypes {
+export function startFlow(flowType: string, currentStep?: string): FlowManagerActionTypes {
 	return {
 		type: START_FLOW_TYPE,
 		payload: {
 			flowType,
-			currentPage
+			currentStep
 		}
 	};
 }

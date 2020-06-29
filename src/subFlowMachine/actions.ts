@@ -26,13 +26,14 @@ export const onCheckDone = (context: SubFlowMachineContext, event: any) => {
 	return new Promise((resolve) => {
 		const { currentFlowToCheck, error } = context;
 		const subFlows = StoreAPI.getSubFlows();
+		const flowType = StoreAPI.getFlowType();
 
 		if (currentFlowToCheck) {
 			if (error) {
 				if (subFlows.includes(currentFlowToCheck)) {
 					StoreAPI.removeSubFlow(currentFlowToCheck);
 				}
-			} else if (!subFlows.includes(currentFlowToCheck)) {
+			} else if (!subFlows.includes(currentFlowToCheck) && flowType) {
 				StoreAPI.addSubFlow(currentFlowToCheck);
 			}
 		}

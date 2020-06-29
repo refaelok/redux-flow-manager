@@ -1,5 +1,8 @@
 import { Store } from 'redux';
-import { subFlowTypesSelector } from './selectors';
+import {
+	flowTypesSelector,
+	subFlowTypesSelector
+} from './selectors';
 import {
 	startFlow,
 	endFlow,
@@ -16,24 +19,30 @@ class StoreAPI {
 		this.sliceName = sliceName;
 	}
 
-	private getFlowManagerState() {
-		return this.store.getState()[this.sliceName];
-	}
-
 	private dispatch(action: any) {
 		this.store.dispatch(action);
 	}
 
-	public startFlow(flowType: string, currentPage?: string) {
-		this.dispatch(startFlow(flowType, currentPage));
+	private getFlowManagerState() {
+		return this.store.getState()[this.sliceName];
 	}
 
-	public endFlow() {
-		this.dispatch(endFlow());
+	/* Selectors */
+	public getFlowType() {
+		return flowTypesSelector(this.getFlowManagerState());
 	}
 
 	public getSubFlows() {
 		return subFlowTypesSelector(this.getFlowManagerState());
+	}
+
+	/* Actions */
+	public startFlow(flowType: string, currentStep?: string) {
+		this.dispatch(startFlow(flowType, currentStep));
+	}
+
+	public endFlow() {
+		this.dispatch(endFlow());
 	}
 
 	public addSubFlow(subFlowType: string) {

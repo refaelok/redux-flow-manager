@@ -10,11 +10,11 @@ import {
 } from './types';
 
 const initialState: FlowManagerState = {
-	currentPage: '',
-	nextPage: '',
+	currentStep: '',
+	nextStep: '',
 	flowType: '',
 	subFlowTypes: [],
-	pages: []
+	steps: []
 };
 
 export function flowManagerReducer(
@@ -23,10 +23,10 @@ export function flowManagerReducer(
 ): FlowManagerState {
 	switch (action.type) {
 		case START_FLOW_TYPE: {
-			const { flowType, currentPage = '' } = action.payload;
+			const { flowType, currentStep = '' } = action.payload;
 			const newState = { ...state };
 			newState.flowType = flowType;
-			newState.currentPage = currentPage;
+			newState.currentStep = currentStep;
 			return newState;
 		}
 		case END_FLOW_TYPE: {

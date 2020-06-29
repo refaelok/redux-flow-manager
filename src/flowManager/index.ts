@@ -9,15 +9,15 @@ export default class FlowManagerAPI {
 		this.subFlowMachine = new SubFlowMachine(flowsConfig);
 	}
 
-	public startFlow(flowType: string, currentPage?: string) {
+	public startFlow(flowType: string, currentStep?: string) {
 		const { service } = this.subFlowMachine;
 
 		service.stop();
 
-		StoreAPI.startFlow(flowType, currentPage);
+		StoreAPI.startFlow(flowType, currentStep);
 
 		service.start().onDone(() => {
-			// TODO: Calculate pages information
+			// TODO: Calculate steps information
 		});
 	}
 
@@ -28,17 +28,25 @@ export default class FlowManagerAPI {
 		StoreAPI.endFlow();
 	}
 
-	public UpdateCurrentPage(currentPage: string) {
+	public UpdateCurrentStep(currentStep: string) {
 		const { service } = this.subFlowMachine;
 
 		service.stop();
 
-		// TODO: Update current page in store
+		// TODO: Update current steps in store
 
 		service.start();
 	}
 
 	public calculateSubFlowTypes() {
+		const flowType = StoreAPI.getFlowType();
+		if (!flowType) {
+			throw new Error(
+				// eslint-disable-next-line max-len
+				'You try calculateSubFlowTypes without set flow type. did you forget to call to startFlow in some point ?'
+			);
+		}
+
 		return new Promise((resolve) => {
 			const { service } = this.subFlowMachine;
 

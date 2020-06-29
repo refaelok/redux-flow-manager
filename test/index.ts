@@ -97,5 +97,7 @@ for (let i = 0; i < 10; i += 1) {
 }
 
 // Test - End Flow
-flowManagerAPI.endFlow();
+setTimeout(() => {
+	flowManagerAPI.endFlow();
+}, 500);
 
