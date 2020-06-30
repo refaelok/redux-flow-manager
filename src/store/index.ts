@@ -2,9 +2,10 @@ import { Store } from 'redux';
 import { UpdateStepsInformationInput } from './types';
 import {
 	flowTypesSelector,
-	getCurrentStepSelector,
 	subFlowTypesSelector,
-	getStepsSelector
+	getCurrentStepSelector,
+	getNextStepSelector,
+	getStepsSelector,
 } from './selectors';
 import {
 	startFlowAction,
@@ -42,6 +43,10 @@ class StoreAPI {
 
 	public getCurrentStep() {
 		return getCurrentStepSelector(this.getFlowManagerState());
+	}
+
+	public getNextStep() {
+		return getNextStepSelector(this.getFlowManagerState());
 	}
 
 	public getSteps() {

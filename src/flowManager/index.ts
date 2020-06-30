@@ -113,13 +113,6 @@ export default class FlowManagerAPI {
 		});
 	}
 
-	public getNextStep() {
-		const steps = this.getSteps();
-		const currentStep = this.getCurrentStep();
-
-		return this.calculateNextStep(steps, currentStep);
-	}
-
 	/* Selectors */
 	public getFlowType() {
 		return StoreAPI.getFlowType();
@@ -135,5 +128,9 @@ export default class FlowManagerAPI {
 
 	public getSteps() {
 		return StoreAPI.getSteps();
+	}
+
+	public getNextStep() {
+		return StoreAPI.getNextStep();
 	}
 }
