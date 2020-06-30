@@ -2,6 +2,7 @@ import _ from 'lodash';
 import StoreAPI from '../store';
 import SubFlowMachine from '../subFlowMachine';
 import { SubFlowsConfig } from '../subFlowMachine/types';
+import { UpdateStepsInformationInput } from '../store/types';
 
 export default class FlowManagerAPI {
 	private readonly subFlowMachine: SubFlowMachine;
@@ -33,10 +34,11 @@ export default class FlowManagerAPI {
 		});
 	}
 
-	private calculateStepInformation() {
+	private calculateStepInformation(): UpdateStepsInformationInput {
 		const flowType = this.getFlowType();
 		const subFlowTypes = this.getSubFlowTypes();
 		const stepConfigByFlowType = this.stepsConfig[flowType];
+		let result = {};
 
 		if (stepConfigByFlowType) {
 			const subFlowsSteps = Object.keys(stepConfigByFlowType);
@@ -52,12 +54,15 @@ export default class FlowManagerAPI {
 				const currentStep = this.getCurrentStep();
 				const nextStep = this.calculateNextStep(steps, currentStep);
 
-				StoreAPI.updateStepsInformation({
-					steps,
-					nextStep
-				});
+				result = {
+					currentStep,
+					nextStep,
+					steps
+				};
 			}
 		}
+
+		return result;
 	}
 
 	private calculateNextStep(steps: Array<string>, currentStep: string) {
@@ -82,8 +87,20 @@ export default class FlowManagerAPI {
 	}
 
 	public async updateInformation() {
+		const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
+		const nextStepBeforeCalculate = StoreAPI.getNextStep();
+		const stepsBeforeCalculate = StoreAPI.getSteps();
+
 		await this.calculateSubFlowTypes();
-		this.calculateStepInformation();
+		const result = this.calculateStepInformation();
+
+		if (
+			currentStepBeforeCalculate !== result.currentStep
+			|| nextStepBeforeCalculate !== result.nextStep
+			|| !_.isEqual(stepsBeforeCalculate.sort(), result.steps?.sort())
+		) {
+			StoreAPI.updateStepsInformation(result);
+		}
 	}
 
 	public async setCurrentStep(currentStep: string) {

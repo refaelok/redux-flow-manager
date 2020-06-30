@@ -15,6 +15,8 @@ const startApp = async () => {
 	await flowManagerAPI.setCurrentStep('STEP_R');
 	await flowManagerAPI.nextStep();
 	console.log('next step again', flowManagerAPI.getNextStep());
+
+	await flowManagerAPI.updateInformation();
 };
 
 startApp().then(() => {
