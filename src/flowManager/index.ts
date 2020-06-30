@@ -71,6 +71,10 @@ export default class FlowManagerAPI {
 	}
 
 	/* public methods */
+	public getMachineFlowConfig() {
+		return this.subFlowMachine.machineConfig;
+	}
+
 	public async startFlow(flowType: string, currentStep?: string) {
 		StoreAPI.startFlow(flowType, currentStep);
 

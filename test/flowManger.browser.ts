@@ -7,7 +7,11 @@ const startApp = async () => {
 
 	flowManagerAPI.setCurrentStep('STEP_T');
 	const nextStep = flowManagerAPI.getNextStep();
-	console.log('subFlowTypes, nextStep', subFlowTypes, nextStep);
+	const steps = flowManagerAPI.getSteps();
+	const machineConfig = flowManagerAPI.getMachineFlowConfig();
+
+	console.log('subFlowTypes, nextStep, steps', subFlowTypes, nextStep, steps);
+	console.log('machine config', machineConfig);
 };
 
 startApp().then(() => {
