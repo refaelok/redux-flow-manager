@@ -12,7 +12,7 @@ const conditionD = conditionExampleTemplate(true, 'conditionD');
 /** * Flows Config ** */
 const flowsConfig = [
 	{
-		flowName: 'onlyAccessoryFlow',
+		flowName: 'planOnlyFlow',
 		conditions: [
 			{
 				conditionName: 'conditionA',
@@ -26,7 +26,7 @@ const flowsConfig = [
 		]
 	},
 	{
-		flowName: 'planOnlyFlow',
+		flowName: 'onlyAccessoryFlow',
 		conditions: [
 			{
 				conditionName: 'conditionC',
@@ -53,6 +53,41 @@ const flowsConfig = [
 	}
 ];
 
+const stepsConfig = {
+	COP: {
+		onlyAccessoryFlow: {
+			steps: [
+				'STEP_A',
+				'STEP_B',
+				'STEP_C',
+			]
+		}
+	},
+	CHQ: {
+		'planOnlyFlow,changePlanFlow': {
+			steps: [
+				'STEP_R',
+				'STEP_T',
+				'STEP_X',
+			]
+		},
+		planOnlyFlow: {
+			steps: [
+				'STEP_B',
+				'STEP_C',
+				'STEP_D',
+			]
+		},
+		changePlanFlow: {
+			steps: [
+				'STEP_A',
+				'STEP_D',
+				'STEP_E',
+			]
+		}
+	}
+};
+
 /** * Create Store ** */
 const rootReducer = combineReducers({
 	flowManager: flowManagerReducer
@@ -60,5 +95,5 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, devToolsEnhancer({}));
 
-export default CreateFlowManagerAPI(store, 'flowManager', flowsConfig);
+export default CreateFlowManagerAPI(store, 'flowManager', flowsConfig, stepsConfig);
 

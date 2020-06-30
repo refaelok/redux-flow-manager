@@ -1,9 +1,13 @@
 import flowManagerAPI from './fakeApp';
 
 const startApp = async () => {
-	flowManagerAPI.startFlow('CHQ', 'DEVICE_LIST');
-	const subFlowTypes = await flowManagerAPI.calculateSubFlowTypes();
-	console.log(subFlowTypes);
+	await flowManagerAPI.startFlow('CHQ', 'STEP_R');
+	await flowManagerAPI.updateInformation();
+	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
+
+	flowManagerAPI.setCurrentStep('STEP_T');
+	const nextStep = flowManagerAPI.getNextStep();
+	console.log('subFlowTypes, nextStep', subFlowTypes, nextStep);
 };
 
 startApp().then(() => {

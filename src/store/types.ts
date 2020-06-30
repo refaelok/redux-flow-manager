@@ -2,6 +2,7 @@ export const START_FLOW_TYPE = '@@redux-flow-manager/START_FLOW_TYPE';
 export const END_FLOW_TYPE = '@@redux-flow-manager/END_FLOW_TYPE';
 export const ADD_SUB_FLOW_TYPE = '@@redux-flow-manager/ADD_SUB_FLOW_TYPE';
 export const REMOVE_SUB_FLOW_TYPE = '@@redux-flow-manager/REMOVE_SUB_FLOW_TYPE';
+export const UPDATE_STEPS_INFORMATION = '@@redux-flow-manager/UPDATE_STEPS_INFORMATION';
 
 export interface FlowManagerState {
 	flowType: string;
@@ -9,6 +10,12 @@ export interface FlowManagerState {
 	currentStep: string;
 	nextStep: string;
 	steps: Array<string>;
+}
+
+export interface UpdateStepsInformationInput {
+	currentStep?: string;
+	nextStep?: string;
+	steps?: Array<string>;
 }
 
 interface StartFlowTypeAction {
@@ -33,8 +40,18 @@ interface RemoveSubFlowTypeAction {
 	payload: string;
 }
 
+interface UpdateStepsInformationAction {
+	type: typeof UPDATE_STEPS_INFORMATION;
+	payload: {
+		steps?: Array<string>;
+		currentStep?: string;
+		nextStep?: string;
+	};
+}
+
 export type FlowManagerActionTypes =
 	AddSubFlowTypeAction |
 	RemoveSubFlowTypeAction |
 	StartFlowTypeAction |
+	UpdateStepsInformationAction |
 	EndFlowTypeAction;

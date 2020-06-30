@@ -1,20 +1,33 @@
 import flowManagerAPI from './fakeApp';
 
-test('Start Flow with flowType = COP; currentStep = DEVICE_GALLERY', () => {
-	flowManagerAPI.startFlow('COP', 'DEVICE_GALLERY');
+test('Start Flow with flowType = CHQ; currentStep = STEP_R', async () => {
+	await flowManagerAPI.startFlow('CHQ', 'STEP_R');
 	const flowType = flowManagerAPI.getFlowType();
 	const currentStep = flowManagerAPI.getCurrentStep();
 
-	expect(flowType).toBe('COP');
-	expect(currentStep).toBe('DEVICE_GALLERY');
+	expect(flowType).toBe('CHQ');
+	expect(currentStep).toBe('STEP_R');
 });
 
-test('Calculate sub flow types with sub flows = [onlyAccessory, planOnly]', async () => {
-	const subFlows = await flowManagerAPI.calculateSubFlowTypes();
-	const subFlowTypesFromAPI = flowManagerAPI.getSubFlowTypes();
+test('Calculate sub flow types with sub flows = [planOnlyFlow, changePlanFlow]', async () => {
+	await flowManagerAPI.updateInformation();
+	const subFlows = flowManagerAPI.getSubFlowTypes();
 
-	expect(subFlows).toMatchObject(['onlyAccessoryFlow', 'changePlanFlow']);
-	expect(subFlowTypesFromAPI).toMatchObject(['onlyAccessoryFlow', 'changePlanFlow']);
+	expect(subFlows).toMatchObject(['planOnlyFlow', 'changePlanFlow']);
+});
+
+test('set current step to STEP_T', async () => {
+	flowManagerAPI.setCurrentStep('STEP_T');
+	const currentStep = flowManagerAPI.getCurrentStep();
+
+	expect(currentStep).toBe('STEP_T');
+});
+
+test('After test set STEP_T next step should be STEP_X', async () => {
+	flowManagerAPI.setCurrentStep('STEP_T');
+	const nextStep = flowManagerAPI.getNextStep();
+
+	expect(nextStep).toBe('STEP_X');
 });
 
 test('after End Flow data should be empty in store', async () => {

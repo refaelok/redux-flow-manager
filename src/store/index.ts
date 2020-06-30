@@ -1,14 +1,17 @@
 import { Store } from 'redux';
+import { UpdateStepsInformationInput } from './types';
 import {
 	flowTypesSelector,
 	getCurrentStepSelector,
-	subFlowTypesSelector
+	subFlowTypesSelector,
+	getStepsSelector
 } from './selectors';
 import {
-	startFlow,
-	endFlow,
-	addSubFlowType,
-	removeSubFlowType
+	startFlowAction,
+	endFlowAction,
+	addSubFlowTypeAction,
+	removeSubFlowTypeAction,
+	updateStepsInformationAction
 } from './actions';
 
 class StoreAPI {
@@ -41,21 +44,29 @@ class StoreAPI {
 		return getCurrentStepSelector(this.getFlowManagerState());
 	}
 
+	public getSteps() {
+		return getStepsSelector(this.getFlowManagerState());
+	}
+
 	/* Actions */
 	public startFlow(flowType: string, currentStep?: string) {
-		this.dispatch(startFlow(flowType, currentStep));
+		this.dispatch(startFlowAction(flowType, currentStep));
 	}
 
 	public endFlow() {
-		this.dispatch(endFlow());
+		this.dispatch(endFlowAction());
 	}
 
 	public addSubFlow(subFlowType: string) {
-		this.dispatch(addSubFlowType(subFlowType));
+		this.dispatch(addSubFlowTypeAction(subFlowType));
 	}
 
 	public removeSubFlow(subFlowType: string) {
-		this.dispatch(removeSubFlowType(subFlowType));
+		this.dispatch(removeSubFlowTypeAction(subFlowType));
+	}
+
+	public updateStepsInformation(steps: UpdateStepsInformationInput) {
+		this.dispatch(updateStepsInformationAction(steps));
 	}
 }
 

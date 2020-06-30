@@ -6,14 +6,15 @@ import {
 	START_FLOW_TYPE,
 	END_FLOW_TYPE,
 	ADD_SUB_FLOW_TYPE,
-	REMOVE_SUB_FLOW_TYPE
+	REMOVE_SUB_FLOW_TYPE,
+	UPDATE_STEPS_INFORMATION
 } from './types';
 
 const initialState: FlowManagerState = {
-	currentStep: '',
-	nextStep: '',
 	flowType: '',
 	subFlowTypes: [],
+	currentStep: '',
+	nextStep: '',
 	steps: []
 };
 
@@ -41,6 +42,9 @@ export function flowManagerReducer(
 			const newState = { ...state };
 			newState.subFlowTypes = _.filter(newState.subFlowTypes, (flowType) => action.payload !== flowType);
 			return newState;
+		}
+		case UPDATE_STEPS_INFORMATION: {
+			return { ...state, ...action.payload };
 		}
 		default:
 			return state;
