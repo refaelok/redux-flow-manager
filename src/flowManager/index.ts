@@ -86,15 +86,7 @@ export default class FlowManagerAPI {
 		this.calculateStepInformation();
 	}
 
-	public endFlow() {
-		const { service } = this.subFlowMachine;
-
-		service.stop();
-
-		StoreAPI.endFlow();
-	}
-
-	public setCurrentStep(currentStep: string) {
+	public async setCurrentStep(currentStep: string) {
 		const flowType = StoreAPI.getFlowType();
 		const steps = StoreAPI.getSteps();
 
@@ -115,6 +107,22 @@ export default class FlowManagerAPI {
 			currentStep,
 			nextStep: this.calculateNextStep(steps, currentStep)
 		});
+
+		await this.updateInformation();
+	}
+
+	public async nextStep() {
+		const nextStep = this.getNextStep();
+		await this.setCurrentStep(nextStep);
+		return nextStep;
+	}
+
+	public endFlow() {
+		const { service } = this.subFlowMachine;
+
+		service.stop();
+
+		StoreAPI.endFlow();
 	}
 
 	/* Selectors */
