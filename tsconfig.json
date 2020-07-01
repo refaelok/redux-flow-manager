@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "./lib/esm",
-    "target": "ES2015",
-    "module": "ES2020",
+    "outDir": "./lib",
+    "target": "es5",
+    "module": "es6",
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
