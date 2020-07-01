@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 import StoreAPI from '../store';
 import SubFlowMachine from '../subFlowMachine';
 import { SubFlowsConfig } from '../subFlowMachine/types';

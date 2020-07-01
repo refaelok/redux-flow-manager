@@ -8,3 +8,4 @@ package-lock.json
 /.vscode/launch.json
 boardGamesScanResults/
 dist
+lib

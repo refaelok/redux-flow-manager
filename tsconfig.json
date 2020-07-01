@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "module": "es2015",
+    "outDir": "./lib/esm",
+    "target": "ES2015",
+    "module": "ES2020",
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
       "@base/*": ["base/*"]
     },
-    "target": "es5",
     "lib": ["es5", "es6", "es7", "es2017", "dom", "esnext.asynciterable"],
     "jsx": "react",
     "sourceMap": true,
@@ -26,10 +26,8 @@
     "esModuleInterop": true
   },
   "include": [
-    "files",
     "src/",
-    "index.d.ts",
-    "test/"
+    "index.d.ts"
   ],
   "exclude": ["node_modules", "generator", "dist"]
 }
