@@ -1,6 +1,6 @@
 {
   "name": "redux-flow-manager",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Flow Manager System Base",
   "main": "lib/cjs/index.js",
   "module ": "lib/esm/index.js",
