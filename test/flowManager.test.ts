@@ -1,7 +1,8 @@
-import flowManagerAPI from './fakeApp';
+import flowManagerAPI from './app';
 
 test('Start Flow with flowType = CHQ; currentStep = STEP_R', async () => {
-	await flowManagerAPI.startFlow('CHQ', 'STEP_R');
+	flowManagerAPI.startFlow('CHQ', true, 'STEP_R');
+	await flowManagerAPI.updateInformation();
 	const flowType = flowManagerAPI.getFlowType();
 	const currentStep = flowManagerAPI.getCurrentStep();
 

@@ -16,8 +16,8 @@ import {
 } from './actions';
 
 class StoreAPI {
-	private store: Store;
-	private sliceName: string;
+	public store: Store;
+	public sliceName: string;
 
 	public setStore(store: Store, sliceName: string) {
 		this.store = store;

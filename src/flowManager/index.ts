@@ -7,6 +7,7 @@ import { UpdateStepsInformationInput } from '../store/types';
 export default class FlowManagerAPI {
 	private readonly subFlowMachine: SubFlowMachine;
 	private readonly stepsConfig: any;
+	private unsubscribe: any;
 
 	constructor(flowsConfig: SubFlowsConfig, stepsConfig: any) {
 		this.subFlowMachine = new SubFlowMachine(flowsConfig);
@@ -80,30 +81,23 @@ export default class FlowManagerAPI {
 		return this.subFlowMachine.machineConfig;
 	}
 
-	public async startFlow(flowType: string, currentStep?: string) {
+	public startFlow(flowType: string, autoUpdate?: boolean, currentStep?: string) {
 		StoreAPI.startFlow(flowType, currentStep);
 
-		await this.updateInformation();
-	}
-
-	public async updateInformation() {
-		const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
-		const nextStepBeforeCalculate = StoreAPI.getNextStep();
-		const stepsBeforeCalculate = StoreAPI.getSteps();
-
-		await this.calculateSubFlowTypes();
-		const result = this.calculateStepInformation();
-
-		if (
-			currentStepBeforeCalculate !== result.currentStep
-			|| nextStepBeforeCalculate !== result.nextStep
-			|| !_.isEqual(stepsBeforeCalculate.sort(), result.steps?.sort())
-		) {
-			StoreAPI.updateStepsInformation(result);
+		if (autoUpdate) {
+			this.unsubscribe = StoreAPI.store.subscribe(() => {
+				this.updateInformation();
+			});
 		}
 	}
 
-	public async setCurrentStep(currentStep: string) {
+	public nextStep() {
+		const nextStep = this.getNextStep();
+		this.setCurrentStep(nextStep);
+		return nextStep;
+	}
+
+	public setCurrentStep(currentStep: string) {
 		const flowType = StoreAPI.getFlowType();
 		const steps = StoreAPI.getSteps();
 
@@ -124,18 +118,31 @@ export default class FlowManagerAPI {
 			currentStep,
 			nextStep: this.calculateNextStep(steps, currentStep)
 		});
-
-		await this.updateInformation();
 	}
 
-	public async nextStep() {
-		const nextStep = this.getNextStep();
-		await this.setCurrentStep(nextStep);
-		return nextStep;
+	public async updateInformation() {
+		const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
+		const nextStepBeforeCalculate = StoreAPI.getNextStep();
+		const stepsBeforeCalculate = StoreAPI.getSteps();
+
+		await this.calculateSubFlowTypes();
+		const result = this.calculateStepInformation();
+
+		if (
+			currentStepBeforeCalculate !== result.currentStep
+			|| nextStepBeforeCalculate !== result.nextStep
+			|| !_.isEqual(stepsBeforeCalculate.sort(), result.steps?.sort())
+		) {
+			StoreAPI.updateStepsInformation(result);
+		}
 	}
 
 	public endFlow() {
 		const { service } = this.subFlowMachine;
+
+		if (this.unsubscribe) {
+			this.unsubscribe();
+		}
 
 		service.stop();
 

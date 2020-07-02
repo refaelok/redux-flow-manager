@@ -1,7 +1,12 @@
-import flowManagerAPI from './fakeApp';
+import flowManagerAPI from './app';
 
 const startApp = async () => {
-	await flowManagerAPI.startFlow('CHQ', 'STEP_R');
+	setTimeout(() => {
+		flowManagerAPI.nextStep();
+	}, 5000);
+
+	flowManagerAPI.startFlow('CHQ',true, 'STEP_R');
+	await flowManagerAPI.updateInformation();
 	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
 
 	await flowManagerAPI.setCurrentStep('STEP_T');
@@ -15,6 +20,7 @@ const startApp = async () => {
 	await flowManagerAPI.setCurrentStep('STEP_R');
 	await flowManagerAPI.nextStep();
 	console.log('next step again', flowManagerAPI.getNextStep());
+
 
 	await flowManagerAPI.updateInformation();
 };

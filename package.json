@@ -4,6 +4,11 @@
   "description": "Flow Manager System Base",
   "main": "dist/index.js",
   "module": "lib/index.js",
+  "homepage": "https://github.com/refaelok/redux-flow-manager",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/refaelok/redux-flow-manager"
+  },
   "files": [
     "lib/",
     "dist/"
@@ -28,11 +33,14 @@
   },
   "keywords": [
     "redux",
-    "flow",
+    "react",
+    "xstate",
+    "flow manager",
+    "flow orianted",
     "manager"
   ],
   "author": "refaeloknin@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash": "4.17.15",
     "redux": "4.0.5",
