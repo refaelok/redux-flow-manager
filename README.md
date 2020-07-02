@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
 **Step 2:** Create Steps Configuration file - steps config define the set of steps for each sub flow type/s.
 (config files properties are explained below. [Steps Configuration](#steps-configuration))
 
-```jsx
+```js
 const stepsConfig = {
 	COP: {
 		onlyAccessoryFlow: {
@@ -71,7 +71,7 @@ const stepsConfig = {
 **Step 3:** Create Flows Configuration file - flow config file define the sub flow types name and the conditions that should be success to make this sub flow valid.
 (config files properties are explained below. [Flows Configuration](#flows-configuration))
 
-```jsx
+```js
 const flowsConfig = [
 	{
 		flowName: 'planOnlyFlow',
