@@ -20,7 +20,7 @@ export default class FlowManagerAPI {
 		if (!flowType) {
 			throw new Error(
 				// eslint-disable-next-line max-len
-				'You try calculateSubFlowTypes without set flow type. did you forget to call to startFlow in some point ?'
+				'You try updateInformation without set flow type. did you forget to call to startFlow in some point ?'
 			);
 		}
 
