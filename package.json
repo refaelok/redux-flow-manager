@@ -1,6 +1,6 @@
 {
   "name": "redux-flow-manager",
-  "version": "1.0.14",
+  "version": "1.0.13",
   "description": "Flow Manager System Base",
   "main": "dist/index.js",
   "module": "lib/index.js",
@@ -26,7 +26,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:browser": "npm run test && poi --serve ./test/flowManger.browser.ts",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm version patch && npm run build"
   },
   "jest": {
     "preset": "ts-jest"
