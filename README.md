@@ -184,6 +184,11 @@ interface FlowManagerState {
 
 ### CreateFlowManagerAPI(store, sliceName, flowsConfig, stepsConfig);
 
+Create new instance of flow manager.
+All the API methods of flow manager describe below.
+
+##### arguments:
+
 | Property | Type | Required | Default | Description |
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | `store` | object | Required | undefined | Pass in the redux store. |
@@ -193,7 +198,7 @@ interface FlowManagerState {
 
 
 
-
+<br />
 
 ## Start and End Flow
 
@@ -220,7 +225,7 @@ None
 
 
 
-
+<br />
 
 ## Steps Actions
 
@@ -263,6 +268,10 @@ This is very useful for auto calculation nd update your component automatic with
 None
 
 
+
+
+<br />
+
 ## Selectors
 
 Each Selector return the corresponding value from the store.
@@ -276,6 +285,8 @@ Use Step Actions async methods to get the most updated result before navigate to
 - getSteps()
 - getNextStep()
 
+
+<br />
 
 ### Flows Configuration
 
@@ -341,6 +352,8 @@ const flowsConfig = [
 ];
 ```
 
+<br />
+
 ### Steps Configuration
 
 Steps configuration define for each flow and sub flow, the set of steps that the user need to complete in your application.
@@ -393,6 +406,8 @@ const stepsConfig = {
 ```
 
 
+<br />
+
 ### XState
 
 ### getMachineFlowConfig()
@@ -403,7 +418,10 @@ Return an XState config that can be set in XState visualizer to see your state m
 
 None
 
-https://xstate.js.org/viz/?gist=cebc9af156574bc7eea62b99292e3f56
+
+<br />
+
+[XState Visualizer](https://xstate.js.org/viz/?gist=cebc9af156574bc7eea62b99292e3f56)
 ![Alt text](./test/stateMachine.png)
 
 ## License
