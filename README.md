@@ -1,5 +1,5 @@
 # redux-flow-manager
-Flow Manager help you to manage flow information details and steps ( such what is the next step in the flow etc .. )
+Flow Manager help you to manage flow information details and steps ( such what is the next step in the flow )
 <br/>
 for complicated website relay onf lows such a eCommerce, buy flow etc ..
 <br/>
@@ -237,32 +237,30 @@ None
 
 ### async nextStep()
 
-This is your main way to know your next step before moving to.<br />
-Next Step method update the current step with the next step.<br />
+Update Information, then <b />
+Next Step method update the current step with the next step and the next step with the new next step<br />
 return the next step value.
 
 **NOTE**: next step is async due to he running `updateInformation` before update your store with next step.
-this is make sure that you have the latest calculated next step before you redirect to other page or move to your next page/
-
-##### arguments:
-
-None
-
-### setCurrentStep(currentStep)
-
-Set current step update the store with new current step and then calculate and update the next state<br />
-You should use it a lot when you want ot move to the next step
-
-**NOTE**: if you are not start the flow with autoUpdate. it recommended to call updateInformation after call this method to calculate the steps again.
-Sub flow conditions may effect by the current and next step.
+this is make sure that you have the latest calculated next step before you redirect to other page or move to your next page.
 
 ##### arguments:
 
 | Property | Type | Required | Default | Description |
 |:--------------|:--------------|:--------------|:--------------|:--------------|
-| `currentStep` | string | Required | undefined | The current step to set
+| `step` | string | Optional | currentStep | Optional to pass the step move to. by default it move to the next step according to steps array.
 
+### async isLastStep()
 
+Update Information, then <b />
+Return if the current step is the last step.
+
+**NOTE**: If you call `startFlow` with `autoUpdate` true, this method invoke automatic for every change in store.
+This is very useful for auto calculation nd update your component automatic without worry when to call to updateInformation.
+
+##### arguments:
+
+None
 
 
 ## Selectors

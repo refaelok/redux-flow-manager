@@ -8,7 +8,7 @@ const startApp = async () => {
 	await flowManagerAPI.updateInformation();
 	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
 
-	await flowManagerAPI.setCurrentStep('STEP_T');
+	await flowManagerAPI.nextStep('STEP_T');
 	const nextStep = flowManagerAPI.getNextStep();
 	const steps = flowManagerAPI.getSteps();
 	const machineConfig = flowManagerAPI.getMachineFlowConfig();
@@ -16,9 +16,8 @@ const startApp = async () => {
 	console.log('subFlowTypes, nextStep, steps', subFlowTypes, nextStep, steps);
 	console.log('machine config', machineConfig);
 
-	await flowManagerAPI.setCurrentStep('STEP_R');
+	await flowManagerAPI.nextStep('STEP_R');
 	console.log('next step again', flowManagerAPI.getNextStep());
-
 
 	await flowManagerAPI.updateInformation();
 

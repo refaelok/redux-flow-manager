@@ -20,28 +20,28 @@ test('updateInformation() - Should be sub flows = [changePlanFlow, planOnlyFlow]
 });
 
 test('setCurrentStep(\'STEP_T\') - Should be STEP_T', async () => {
-	flowManagerAPI.setCurrentStep('STEP_T');
+	await flowManagerAPI.nextStep('STEP_T');
 	const currentStep = flowManagerAPI.getCurrentStep();
 
 	expect(currentStep).toBe('STEP_T');
 });
 
-test('getNextStep() - Next step should be STEP_X', () => {
-	flowManagerAPI.setCurrentStep('STEP_T');
+test('getNextStep() - Next step should be STEP_X', async () => {
+	await flowManagerAPI.nextStep('STEP_T');
 	const nextStep = flowManagerAPI.getNextStep();
 
 	expect(nextStep).toBe('STEP_X');
 });
 
 test('nextStep() - Move from STEP_T to STEP_X', async () => {
-	flowManagerAPI.setCurrentStep('STEP_T');
+	await flowManagerAPI.nextStep('STEP_T');
 	const nextStep = await flowManagerAPI.nextStep();
 
 	expect(nextStep).toBe('STEP_X');
 });
 
 test('isLastStep() - Should be true with current step STEP_X', async () => {
-	flowManagerAPI.setCurrentStep('STEP_X');
+	await flowManagerAPI.nextStep('STEP_X');
 	const isLastStep = await flowManagerAPI.isLastStep();
 
 	expect(isLastStep).toBeTruthy();

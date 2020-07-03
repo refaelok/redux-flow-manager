@@ -76,6 +76,23 @@ export default class FlowManagerAPI {
 		return '';
 	}
 
+	private setCurrentStep(currentStep: string) {
+		const flowType = StoreAPI.getFlowType();
+		const steps = StoreAPI.getSteps();
+
+		if (!flowType) {
+			throw new Error(
+				// eslint-disable-next-line max-len
+				'You try updateCurrentStep without set flow type. did you forget to call to startFlow in some point ?'
+			);
+		}
+
+		StoreAPI.updateStepsInformation({
+			currentStep,
+			nextStep: this.calculateNextStep(steps, currentStep)
+		});
+	}
+
 	/* public methods */
 	public getMachineFlowConfig() {
 		return this.subFlowMachine.machineConfig;
@@ -110,10 +127,10 @@ export default class FlowManagerAPI {
 		}
 	}
 
-	public async nextStep() {
+	public async nextStep(step?: string) {
 		await this.updateInformation();
 
-		const nextStep = this.getNextStep();
+		const nextStep = step || this.getNextStep();
 		this.setCurrentStep(nextStep);
 		return nextStep;
 	}
@@ -126,23 +143,6 @@ export default class FlowManagerAPI {
 		const currentStep = this.getCurrentStep();
 
 		return currentStep === lastStep;
-	}
-
-	public setCurrentStep(currentStep: string) {
-		const flowType = StoreAPI.getFlowType();
-		const steps = StoreAPI.getSteps();
-
-		if (!flowType) {
-			throw new Error(
-				// eslint-disable-next-line max-len
-				'You try updateCurrentStep without set flow type. did you forget to call to startFlow in some point ?'
-			);
-		}
-
-		StoreAPI.updateStepsInformation({
-			currentStep,
-			nextStep: this.calculateNextStep(steps, currentStep)
-		});
 	}
 
 	public endFlow() {
