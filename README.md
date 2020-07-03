@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
 ```
 
 **Step 2:** Create Steps Configuration file - steps config define the set of steps for each sub flow type/s.
-(config files properties are explained below. [Steps Configuration](#steps-configuration))
+(config files properties are explained below. [Steps Configuration](#steps-configuration)
 
 ```js
 const stepsConfig = {
@@ -69,7 +69,7 @@ const stepsConfig = {
 ```
 
 **Step 3:** Create Flows Configuration file - flow config file define the sub flow types name and the conditions that should be success to make this sub flow valid.
-(config files properties are explained below. [Flows Configuration](#flows-configuration))
+(config files properties are explained below. [Flows Configuration](#flows-configuration)
 
 ```js
 const flowsConfig = [
@@ -194,7 +194,7 @@ interface FlowManagerState {
 
 ## Start and End Flow
 
-### startFlow(flowType, autoUpdate, currentStep) (async)
+### async startFlow(flowType, autoUpdate, currentStep)
 
 Start flow is used when your app should initial the main flow type in the store.
 That flow type represent a set of sub flow types in your [Flows Configuration](#flows-configuration)
@@ -221,7 +221,7 @@ None
 
 ## Steps Actions
 
-### updateInformation() (async)
+### async updateInformation()
 
 Update Information running the state machine to calculate the sub flows condition and update the steps information and sub flows.
 
@@ -232,7 +232,7 @@ This is very useful for auto calculation nd update your component automatic with
 
 None
 
-### nextStep() (async)
+### async nextStep()
 
 This is your main way to know your next step before moving to.<br />
 Next Step method update the current step with the next step.<br />
@@ -265,6 +265,9 @@ Sub flow conditions may effect by the current and next step.
 ## Selectors
 
 Each Selector return the corresponding value from the store.
+
+**NOTE** is not recommended to use directly with selector.<br />
+Use Step Actions async methods to get the most updated result before navigate to next step for example.
 
 - getFlowType()
 - getSubFlowTypes()

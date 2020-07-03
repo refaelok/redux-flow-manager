@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import StoreAPI from '../store';
 import SubFlowMachine from '../subFlowMachine';
 import { SubFlowsConfig } from '../subFlowMachine/types';
@@ -99,6 +99,16 @@ export default class FlowManagerAPI {
 		const nextStep = this.getNextStep();
 		this.setCurrentStep(nextStep);
 		return nextStep;
+	}
+
+	public async isLastStep() {
+		await this.updateInformation();
+
+		const steps = this.getSteps();
+		const lastStep = _.last(steps);
+		const currentStep = this.getCurrentStep();
+
+		return currentStep === lastStep;
 	}
 
 	public setCurrentStep(currentStep: string) {

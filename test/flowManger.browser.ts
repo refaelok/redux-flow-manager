@@ -1,4 +1,6 @@
-import flowManagerAPI from './app';
+import createApp from './app';
+
+const flowManagerAPI = createApp(true);
 
 const startApp = async () => {
 

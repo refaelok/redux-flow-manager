@@ -1,6 +1,8 @@
-import flowManagerAPI from './app';
+import createApp from './app';
 
-test('Start Flow with flowType = CHQ; currentStep = STEP_R', async () => {
+const flowManagerAPI = createApp();
+
+test('startFlow(\'CHQ\', true, \'STEP_R\') - Should be flowType = CHQ; currentStep = STEP_R', async () => {
 	await flowManagerAPI.startFlow('CHQ', true, 'STEP_R');
 	await flowManagerAPI.updateInformation();
 	const flowType = flowManagerAPI.getFlowType();
@@ -10,21 +12,21 @@ test('Start Flow with flowType = CHQ; currentStep = STEP_R', async () => {
 	expect(currentStep).toBe('STEP_R');
 });
 
-test('Calculate sub flow types with sub flows = [changePlanFlow, planOnlyFlow]', async () => {
+test('updateInformation() - Should be sub flows = [changePlanFlow, planOnlyFlow]', async () => {
 	await flowManagerAPI.updateInformation();
 	const subFlows = flowManagerAPI.getSubFlowTypes();
 
 	expect(subFlows).toMatchObject(['changePlanFlow', 'planOnlyFlow']);
 });
 
-test('set current step to STEP_T', async () => {
+test('setCurrentStep(\'STEP_T\') - Should be STEP_T', async () => {
 	flowManagerAPI.setCurrentStep('STEP_T');
 	const currentStep = flowManagerAPI.getCurrentStep();
 
 	expect(currentStep).toBe('STEP_T');
 });
 
-test('After test set STEP_T next step should be STEP_X', () => {
+test('getNextStep() - Next step should be STEP_X', () => {
 	flowManagerAPI.setCurrentStep('STEP_T');
 	const nextStep = flowManagerAPI.getNextStep();
 
@@ -38,7 +40,14 @@ test('nextStep() - Move from STEP_T to STEP_X', async () => {
 	expect(nextStep).toBe('STEP_X');
 });
 
-test('after End Flow data should be empty in store', () => {
+test('isLastStep() - Should be true with current step STEP_X', async () => {
+	flowManagerAPI.setCurrentStep('STEP_X');
+	const isLastStep = await flowManagerAPI.isLastStep();
+
+	expect(isLastStep).toBeTruthy();
+});
+
+test('endFlow() - After End Flow data should be empty in store', () => {
 	flowManagerAPI.endFlow();
 	const flowType = flowManagerAPI.getFlowType();
 	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
