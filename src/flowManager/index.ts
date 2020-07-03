@@ -93,6 +93,23 @@ export default class FlowManagerAPI {
 		}
 	}
 
+	public async updateInformation() {
+		const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
+		const nextStepBeforeCalculate = StoreAPI.getNextStep();
+		const stepsBeforeCalculate = StoreAPI.getSteps();
+
+		await this.calculateSubFlowTypes();
+		const result = this.calculateStepInformation();
+
+		if (
+			currentStepBeforeCalculate !== result.currentStep
+			|| nextStepBeforeCalculate !== result.nextStep
+			|| !_.isEqual(stepsBeforeCalculate.sort(), result.steps?.sort())
+		) {
+			StoreAPI.updateStepsInformation(result);
+		}
+	}
+
 	public async nextStep() {
 		await this.updateInformation();
 
@@ -126,23 +143,6 @@ export default class FlowManagerAPI {
 			currentStep,
 			nextStep: this.calculateNextStep(steps, currentStep)
 		});
-	}
-
-	public async updateInformation() {
-		const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
-		const nextStepBeforeCalculate = StoreAPI.getNextStep();
-		const stepsBeforeCalculate = StoreAPI.getSteps();
-
-		await this.calculateSubFlowTypes();
-		const result = this.calculateStepInformation();
-
-		if (
-			currentStepBeforeCalculate !== result.currentStep
-			|| nextStepBeforeCalculate !== result.nextStep
-			|| !_.isEqual(stepsBeforeCalculate.sort(), result.steps?.sort())
-		) {
-			StoreAPI.updateStepsInformation(result);
-		}
 	}
 
 	public endFlow() {
