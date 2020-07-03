@@ -31,6 +31,13 @@ test('After test set STEP_T next step should be STEP_X', () => {
 	expect(nextStep).toBe('STEP_X');
 });
 
+test('nextStep() - Move from STEP_T to STEP_X', async () => {
+	flowManagerAPI.setCurrentStep('STEP_T');
+	const nextStep = await flowManagerAPI.nextStep();
+
+	expect(nextStep).toBe('STEP_X');
+});
+
 test('after End Flow data should be empty in store', () => {
 	flowManagerAPI.endFlow();
 	const flowType = flowManagerAPI.getFlowType();

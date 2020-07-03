@@ -232,6 +232,19 @@ This is very useful for auto calculation nd update your component automatic with
 
 None
 
+### nextStep() (async)
+
+This is your main way to know your next step before moving to.<br />
+Next Step method update the current step with the next step.<br />
+return the next step value.
+
+**NOTE**: next step is async due to he running `updateInformation` before update your store with next step.
+this is make sure that you have the latest calculated next step before you redirect to other page or move to your next page/
+
+##### arguments:
+
+None
+
 ### setCurrentStep(currentStep)
 
 Set current step update the store with new current step and then calculate and update the next state<br />

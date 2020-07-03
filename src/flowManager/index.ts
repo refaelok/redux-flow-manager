@@ -93,6 +93,14 @@ export default class FlowManagerAPI {
 		}
 	}
 
+	public async nextStep() {
+		await this.updateInformation();
+
+		const nextStep = this.getNextStep();
+		this.setCurrentStep(nextStep);
+		return nextStep;
+	}
+
 	public setCurrentStep(currentStep: string) {
 		const flowType = StoreAPI.getFlowType();
 		const steps = StoreAPI.getSteps();
