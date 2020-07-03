@@ -1,7 +1,7 @@
 import flowManagerAPI from './app';
 
 test('Start Flow with flowType = CHQ; currentStep = STEP_R', async () => {
-	flowManagerAPI.startFlow('CHQ', true, 'STEP_R');
+	await flowManagerAPI.startFlow('CHQ', true, 'STEP_R');
 	await flowManagerAPI.updateInformation();
 	const flowType = flowManagerAPI.getFlowType();
 	const currentStep = flowManagerAPI.getCurrentStep();
@@ -10,11 +10,11 @@ test('Start Flow with flowType = CHQ; currentStep = STEP_R', async () => {
 	expect(currentStep).toBe('STEP_R');
 });
 
-test('Calculate sub flow types with sub flows = [planOnlyFlow, changePlanFlow]', async () => {
+test('Calculate sub flow types with sub flows = [changePlanFlow, planOnlyFlow]', async () => {
 	await flowManagerAPI.updateInformation();
 	const subFlows = flowManagerAPI.getSubFlowTypes();
 
-	expect(subFlows).toMatchObject(['planOnlyFlow', 'changePlanFlow']);
+	expect(subFlows).toMatchObject(['changePlanFlow', 'planOnlyFlow']);
 });
 
 test('set current step to STEP_T', async () => {
@@ -24,14 +24,14 @@ test('set current step to STEP_T', async () => {
 	expect(currentStep).toBe('STEP_T');
 });
 
-test('After test set STEP_T next step should be STEP_X', async () => {
+test('After test set STEP_T next step should be STEP_X', () => {
 	flowManagerAPI.setCurrentStep('STEP_T');
 	const nextStep = flowManagerAPI.getNextStep();
 
 	expect(nextStep).toBe('STEP_X');
 });
 
-test('after End Flow data should be empty in store', async () => {
+test('after End Flow data should be empty in store', () => {
 	flowManagerAPI.endFlow();
 	const flowType = flowManagerAPI.getFlowType();
 	const subFlowTypes = flowManagerAPI.getSubFlowTypes();

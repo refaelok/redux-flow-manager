@@ -1,5 +1,6 @@
 export const START_FLOW_TYPE = '@@redux-flow-manager/START_FLOW_TYPE';
 export const END_FLOW_TYPE = '@@redux-flow-manager/END_FLOW_TYPE';
+export const SET_SUB_FLOW_TYPE = '@@redux-flow-manager/SET_SUB_FLOW_TYPE';
 export const ADD_SUB_FLOW_TYPE = '@@redux-flow-manager/ADD_SUB_FLOW_TYPE';
 export const REMOVE_SUB_FLOW_TYPE = '@@redux-flow-manager/REMOVE_SUB_FLOW_TYPE';
 export const UPDATE_STEPS_INFORMATION = '@@redux-flow-manager/UPDATE_STEPS_INFORMATION';
@@ -35,6 +36,11 @@ interface AddSubFlowTypeAction {
 	payload: string;
 }
 
+interface SetSubFlowTypeAction {
+	type: typeof SET_SUB_FLOW_TYPE;
+	payload: Array<string>;
+}
+
 interface RemoveSubFlowTypeAction {
 	type: typeof REMOVE_SUB_FLOW_TYPE;
 	payload: string;
@@ -54,4 +60,5 @@ export type FlowManagerActionTypes =
 	RemoveSubFlowTypeAction |
 	StartFlowTypeAction |
 	UpdateStepsInformationAction |
+	SetSubFlowTypeAction |
 	EndFlowTypeAction;

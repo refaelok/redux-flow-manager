@@ -5,6 +5,7 @@ import {
 	FlowManagerActionTypes,
 	START_FLOW_TYPE,
 	END_FLOW_TYPE,
+	SET_SUB_FLOW_TYPE,
 	ADD_SUB_FLOW_TYPE,
 	REMOVE_SUB_FLOW_TYPE,
 	UPDATE_STEPS_INFORMATION
@@ -31,7 +32,12 @@ export function flowManagerReducer(
 			return newState;
 		}
 		case END_FLOW_TYPE: {
-			return { ...initialState };
+			return { ...initialState, subFlowTypes: [], steps: [] };
+		}
+		case SET_SUB_FLOW_TYPE: {
+			const newState = { ...state };
+			newState.subFlowTypes = action.payload;
+			return newState;
 		}
 		case ADD_SUB_FLOW_TYPE: {
 			const newState = { ...state };

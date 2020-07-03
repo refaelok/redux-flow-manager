@@ -4,11 +4,11 @@ import {
 	Interpreter,
 	AnyEventObject
 } from 'xstate';
-import { SubFlowsConfig, SubFlowMachineContext } from './types';
+import { SubFlowsConfig } from './types';
 import { createMachineConfig } from './creators';
 
 class FlowMachineAPI {
-	readonly service: Interpreter<SubFlowMachineContext, any, AnyEventObject>;
+	readonly service: Interpreter<any, any, AnyEventObject>;
 	public machineConfig: any;
 
 	constructor(flowsConfig: SubFlowsConfig) {

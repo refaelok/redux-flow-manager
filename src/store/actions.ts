@@ -1,6 +1,7 @@
 import {
 	START_FLOW_TYPE,
 	END_FLOW_TYPE,
+	SET_SUB_FLOW_TYPE,
 	ADD_SUB_FLOW_TYPE,
 	REMOVE_SUB_FLOW_TYPE,
 	UPDATE_STEPS_INFORMATION,
@@ -42,5 +43,11 @@ export function updateStepsInformationAction(stepsInformation: UpdateStepsInform
 	return {
 		type: UPDATE_STEPS_INFORMATION,
 		payload: stepsInformation
+	};
+}
+export function setSubFlowTypesAction(subFlowTypes: Array<string>): FlowManagerActionTypes {
+	return {
+		type: SET_SUB_FLOW_TYPE,
+		payload: subFlowTypes
 	};
 }

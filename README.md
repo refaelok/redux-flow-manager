@@ -194,7 +194,7 @@ interface FlowManagerState {
 
 ## Start and End Flow
 
-### startFlow(flowType, autoUpdate, currentStep)
+### startFlow(flowType, autoUpdate, currentStep) (async)
 
 Start flow is used when your app should initial the main flow type in the store.
 That flow type represent a set of sub flow types in your [Flows Configuration](#flows-configuration)
@@ -221,7 +221,7 @@ None
 
 ## Steps Actions
 
-### updateInformation()
+### updateInformation() (async)
 
 Update Information running the state machine to calculate the sub flows condition and update the steps information and sub flows.
 
@@ -232,20 +232,10 @@ This is very useful for auto calculation nd update your component automatic with
 
 None
 
-### nextStep()
-
-Next Step method update the current step with the next step.<br />
-
-**NOTE**: if you are not start the flow with autoUpdate. it recommended to call updateInformation after call this method to calculate the steps again.
-Sub flow conditions may effect by the current and next step.
-
-##### arguments:
-
-None
-
 ### setCurrentStep(currentStep)
 
-Set Current Step very useful when the business require tos kip some page and not go automatic to the next step define<br />
+Set current step update the store with new current step and then calculate and update the next state<br />
+You should use it a lot when you want ot move to the next step
 
 **NOTE**: if you are not start the flow with autoUpdate. it recommended to call updateInformation after call this method to calculate the steps again.
 Sub flow conditions may effect by the current and next step.

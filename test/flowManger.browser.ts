@@ -1,11 +1,8 @@
 import flowManagerAPI from './app';
 
 const startApp = async () => {
-	setTimeout(() => {
-		flowManagerAPI.nextStep();
-	}, 5000);
 
-	flowManagerAPI.startFlow('CHQ',true, 'STEP_R');
+	await flowManagerAPI.startFlow('CHQ',true, 'STEP_R');
 	await flowManagerAPI.updateInformation();
 	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
 
@@ -18,11 +15,12 @@ const startApp = async () => {
 	console.log('machine config', machineConfig);
 
 	await flowManagerAPI.setCurrentStep('STEP_R');
-	await flowManagerAPI.nextStep();
 	console.log('next step again', flowManagerAPI.getNextStep());
 
 
 	await flowManagerAPI.updateInformation();
+
+	flowManagerAPI.endFlow();
 };
 
 startApp().then(() => {

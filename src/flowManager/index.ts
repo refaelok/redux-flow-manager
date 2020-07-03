@@ -81,20 +81,16 @@ export default class FlowManagerAPI {
 		return this.subFlowMachine.machineConfig;
 	}
 
-	public startFlow(flowType: string, autoUpdate?: boolean, currentStep?: string) {
+	public async startFlow(flowType: string, autoUpdate?: boolean, currentStep?: string) {
 		StoreAPI.startFlow(flowType, currentStep);
+
+		this.updateInformation();
 
 		if (autoUpdate) {
 			this.unsubscribe = StoreAPI.store.subscribe(() => {
 				this.updateInformation();
 			});
 		}
-	}
-
-	public nextStep() {
-		const nextStep = this.getNextStep();
-		this.setCurrentStep(nextStep);
-		return nextStep;
 	}
 
 	public setCurrentStep(currentStep: string) {
@@ -105,12 +101,6 @@ export default class FlowManagerAPI {
 			throw new Error(
 				// eslint-disable-next-line max-len
 				'You try updateCurrentStep without set flow type. did you forget to call to startFlow in some point ?'
-			);
-		}
-		if (currentStep !== '' && !steps.includes(currentStep)) {
-			throw new Error(
-				// eslint-disable-next-line max-len
-				'You try setCurrentStep with value that not exist in the current steps.'
 			);
 		}
 

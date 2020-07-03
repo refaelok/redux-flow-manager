@@ -2,6 +2,7 @@ export type SubFlowsConfig = Array<SubFlow>;
 
 export interface SubFlowMachineContext {
 	currentFlowToCheck: string;
+	subFlowTypes: Array<string>;
 	error: boolean;
 }
 

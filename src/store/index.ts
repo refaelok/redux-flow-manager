@@ -12,7 +12,8 @@ import {
 	endFlowAction,
 	addSubFlowTypeAction,
 	removeSubFlowTypeAction,
-	updateStepsInformationAction
+	updateStepsInformationAction,
+	setSubFlowTypesAction
 } from './actions';
 
 class StoreAPI {
@@ -60,6 +61,10 @@ class StoreAPI {
 
 	public endFlow() {
 		this.dispatch(endFlowAction());
+	}
+
+	public setSubFlowTypes(subFlowTypes: Array<string>) {
+		this.dispatch(setSubFlowTypesAction(subFlowTypes));
 	}
 
 	public addSubFlow(subFlowType: string) {
