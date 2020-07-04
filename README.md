@@ -5,6 +5,18 @@ for complicated website relay onf lows such a eCommerce, buy flow etc ..
 <br/>
 Flow Manger using [XState](https://github.com/davidkpiano/xstate) for state machine to calculate where are you currently in the flow and where you need to go.
 
+
+## Motivation
+
+redux-flow-manager created to help you manage application based flows. <br />
+In the flow diagram below you can see example of one flow that can be in your application. <br />
+In that flow diagram, each **color is sub flow**, and green and red steps are start and end flow. <br />
+Redux Flow Manager help you to manage this sub flows and get decisions where you are and where you need to go.<br />
+
+<br />
+
+<a href="assets/FlowDiagram.png" rel="some text">![Foo](./assets/FlowDiagram.png)</a>
+
 ## Install
 
 ```bash
@@ -31,93 +43,13 @@ const rootReducer = combineReducers({
 ...
 ```
 
-**Step 2:** Create Steps Configuration file - steps config define the set of steps for each sub flow type/s.
+**Step 2:** Create Steps Configuration file - steps config define the set of steps for each sub flow types.
 (config files properties are explained below. [Steps Configuration](#steps-configuration)
 
-```js
-const stepsConfig = {
-	COP: {
-		onlyAccessoryFlow: {
-			steps: [
-				'STEP_A',
-				'STEP_B',
-				'STEP_C',
-			]
-		}
-	},
-	CHQ: {
-		'planOnlyFlow,changePlanFlow': {
-			steps: [
-				'STEP_R',
-				'STEP_T',
-				'STEP_X',
-			]
-		},
-		planOnlyFlow: {
-			steps: [
-				'STEP_B',
-				'STEP_C',
-				'STEP_D',
-			]
-		},
-		changePlanFlow: {
-			steps: [
-				'STEP_A',
-				'STEP_D',
-				'STEP_E',
-			]
-		}
-	}
-};
-```
 
 **Step 3:** Create Flows Configuration file - flow config file define the sub flow types name and the conditions that should be success to make this sub flow valid.
 (config files properties are explained below. [Flows Configuration](#flows-configuration)
 
-```js
-const flowsConfig = [
-	{
-		flowName: 'planOnlyFlow',
-		conditions: [
-			{
-				conditionName: 'conditionA',
-				onCheck: conditionA
-			},
-			{
-				conditionName: 'conditionB',
-				onCheck: conditionB,
-				mandatory: false
-			}
-		]
-	},
-	{
-		flowName: 'onlyAccessoryFlow',
-		conditions: [
-			{
-				conditionName: 'conditionC',
-				onCheck: conditionC
-			},
-			{
-				conditionName: 'conditionD',
-				onCheck: conditionD
-			}
-		]
-	},
-	{
-		flowName: 'changePlanFlow',
-		conditions: [
-			{
-				conditionName: 'conditionA',
-				onCheck: conditionA
-			},
-			{
-				conditionName: 'conditionD',
-				onCheck: conditionD
-			}
-		]
-	}
-];
-```
 
 **Step 4:** Call `CreateFlowManagerAPI` with your store, reducer slice name, flows configuration and steps configuration.
 ( more details of how configuration should be look like will explain later )
@@ -422,7 +354,7 @@ None
 <br />
 
 [XState Visualizer](https://xstate.js.org/viz/?gist=cebc9af156574bc7eea62b99292e3f56)
-![Alt text](./test/stateMachine.png)
+![Alt text](./assets/stateMachine.png)
 
 ## License
 
