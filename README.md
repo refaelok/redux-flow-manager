@@ -172,7 +172,7 @@ This is very useful for auto calculation nd update your component automatic with
 
 None
 
-### async nextStep()
+### async nextStep(step?)
 
 Update Information, then <b />
 Next Step method update the current step with the next step and the next step with the new next step<br />
