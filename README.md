@@ -172,14 +172,12 @@ This is very useful for auto calculation nd update your component automatic with
 
 None
 
-### async nextStep(step?)
+### nextStep(step?)
 
-Update Information, then <b />
 Next Step method update the current step with the next step and the next step with the new next step<br />
 return the next step value.
 
-**NOTE**: next step is async due to he running `updateInformation` before update your store with next step.
-this is make sure that you have the latest calculated next step before you redirect to other page or move to your next page.
+**NOTE**: To Promise last updated result, call to updateInformation before.
 
 ##### arguments:
 
@@ -187,13 +185,11 @@ this is make sure that you have the latest calculated next step before you redir
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | `step` | string | Optional | currentStep | Optional to pass the step move to. by default it move to the next step according to steps array.
 
-### async isLastStep()
+### isLastStep()
 
-Update Information, then <b />
 Return if the current step is the last step.
 
-**NOTE**: If you call `startFlow` with `autoUpdate` true, this method invoke automatic for every change in store.
-This is very useful for auto calculation nd update your component automatic without worry when to call to updateInformation.
+**NOTE**: To Promise last updated result, call to updateInformation before.
 
 ##### arguments:
 
