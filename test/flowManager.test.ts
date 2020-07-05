@@ -3,7 +3,7 @@ import createApp from './app';
 const flowManagerAPI = createApp();
 
 test('startFlow(\'CHQ\', true, \'STEP_R\') - Should be flowType = CHQ; currentStep = STEP_R', async () => {
-	await flowManagerAPI.startFlow('CHQ', true, 'STEP_R');
+	await flowManagerAPI.startFlow('CHQ', 'STEP_R', true);
 	await flowManagerAPI.updateInformation();
 	const flowType = flowManagerAPI.getFlowType();
 	const currentStep = flowManagerAPI.getCurrentStep();
@@ -20,29 +20,29 @@ test('updateInformation() - Should be sub flows = [changePlanFlow, planOnlyFlow]
 });
 
 test('setCurrentStep(\'STEP_T\') - Should be STEP_T', async () => {
-	await flowManagerAPI.nextStep('STEP_T');
+	flowManagerAPI.nextStep('STEP_T');
 	const currentStep = flowManagerAPI.getCurrentStep();
 
 	expect(currentStep).toBe('STEP_T');
 });
 
 test('getNextStep() - Next step should be STEP_X', async () => {
-	await flowManagerAPI.nextStep('STEP_T');
+	flowManagerAPI.nextStep('STEP_T');
 	const nextStep = flowManagerAPI.getNextStep();
 
 	expect(nextStep).toBe('STEP_X');
 });
 
 test('nextStep() - Move from STEP_T to STEP_X', async () => {
-	await flowManagerAPI.nextStep('STEP_T');
-	const nextStep = await flowManagerAPI.nextStep();
+	flowManagerAPI.nextStep('STEP_T');
+	const nextStep = flowManagerAPI.nextStep();
 
 	expect(nextStep).toBe('STEP_X');
 });
 
 test('isLastStep() - Should be true with current step STEP_X', async () => {
-	await flowManagerAPI.nextStep('STEP_X');
-	const isLastStep = await flowManagerAPI.isLastStep();
+	flowManagerAPI.nextStep('STEP_X');
+	const isLastStep = flowManagerAPI.isLastStep();
 
 	expect(isLastStep).toBeTruthy();
 });

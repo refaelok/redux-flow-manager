@@ -144,8 +144,8 @@ That flow type represent a set of sub flow types in your [Flows Configuration](#
 | Property | Type | Required | Default | Description |
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | `flowType` | string | Required | undefined | The flow type that represent a set of sub flow types [Flows Configuration](#flows-configuration) |
+| `currentStep` | string | Required | undefined | Initial specific step by start the flow instead of the first step that define in steps array |
 | `autoUpdate` | boolean | Optional | undefined | Optionally pass indicate to automatic run state machine calculator to calculate the flow information data for any change in store |
-| `currentStep` | string | Optional | undefined | Initial specific step by start the flow instead of the first step that define in steps array |
 
 ### endFlow()
 
