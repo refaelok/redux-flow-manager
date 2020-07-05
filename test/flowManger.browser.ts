@@ -4,7 +4,7 @@ const flowManagerAPI = createApp(true);
 
 const startApp = async () => {
 
-	await flowManagerAPI.startFlow('CHQ',true, 'STEP_R');
+	await flowManagerAPI.startFlow('CHQ', 'STEP_R', true);
 	await flowManagerAPI.updateInformation();
 	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
 

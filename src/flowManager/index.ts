@@ -4,6 +4,8 @@ import SubFlowMachine from '../subFlowMachine';
 import { SubFlowsConfig } from '../subFlowMachine/types';
 import { UpdateStepsInformationInput } from '../store/types';
 
+const FINAL_STEP_VALUE = 'FINAL';
+
 export default class FlowManagerAPI {
 	private readonly subFlowMachine: SubFlowMachine;
 	private readonly stepsConfig: any;
@@ -60,6 +62,12 @@ export default class FlowManagerAPI {
 					nextStep,
 					steps
 				};
+			} else {
+				result = {
+					currentStep: '',
+					nextStep: '',
+					steps: []
+				};
 			}
 		}
 
@@ -98,10 +106,10 @@ export default class FlowManagerAPI {
 		return this.subFlowMachine.machineConfig;
 	}
 
-	public async startFlow(flowType: string, autoUpdate?: boolean, currentStep?: string) {
+	public async startFlow(flowType: string, currentStep: string, autoUpdate?: boolean) {
 		StoreAPI.startFlow(flowType, currentStep);
 
-		this.updateInformation();
+		await this.updateInformation();
 
 		if (autoUpdate) {
 			this.unsubscribe = StoreAPI.store.subscribe(() => {
@@ -127,17 +135,17 @@ export default class FlowManagerAPI {
 		}
 	}
 
-	public async nextStep(step?: string) {
-		await this.updateInformation();
+	public nextStep(step?: string) {
+		if (this.isLastStep()) {
+			return FINAL_STEP_VALUE;
+		}
 
 		const nextStep = step || this.getNextStep();
 		this.setCurrentStep(nextStep);
 		return nextStep;
 	}
 
-	public async isLastStep() {
-		await this.updateInformation();
-
+	public isLastStep() {
 		const steps = this.getSteps();
 		const lastStep = _.last(steps);
 		const currentStep = this.getCurrentStep();
