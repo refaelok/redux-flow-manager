@@ -4,6 +4,7 @@ import FlowManagerAPI from './flowManager';
 import { SubFlowsConfig } from './subFlowMachine/types';
 
 export { default as FlowManagerAPI } from './flowManager';
+export * from './store/types';
 export { flowManagerReducer } from './store/reducer';
 export * from './subFlowMachine/types';
 export default (store: Store, sliceName: string, flowsConfig: SubFlowsConfig, stepsConfig: any) => {
