@@ -1,9 +1,10 @@
 {
   "name": "redux-flow-manager",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Flow Manager System Base",
   "main": "dist/index.js",
   "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "homepage": "https://github.com/refaelok/redux-flow-manager",
   "repository": {
     "type": "git",
