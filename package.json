@@ -9,6 +9,10 @@
     "type": "git",
     "url": "https://github.com/refaelok/redux-flow-manager"
   },
+  "files": [
+    "lib/",
+    "dist/"
+  ],
   "scripts": {
     "clear": "rimraf ./dist && rimraf ./lib",
     "lint": "esw ./src --ext .ts,.tsx",
