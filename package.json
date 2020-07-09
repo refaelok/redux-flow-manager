@@ -1,6 +1,6 @@
 {
   "name": "redux-flow-manager",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Flow Manager System Base",
   "main": "dist/index.js",
   "module": "lib/index.js",
@@ -11,7 +11,8 @@
   },
   "files": [
     "lib/",
-    "dist/"
+    "dist/",
+    "index.d.ts"
   ],
   "scripts": {
     "clear": "rimraf ./dist && rimraf ./lib",
