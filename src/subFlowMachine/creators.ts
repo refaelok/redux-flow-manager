@@ -86,6 +86,10 @@ export const createFlows = (flowsConfig: SubFlowsConfig) => {
 			nextFlowName = flowsConfig[index + 1].flowName;
 		}
 
+		if (!flow.conditions?.length) {
+			throw new Error(`The sub flow ${flow.flowName} must include at least one condition.`);
+		}
+
 		return createFlow(flow.flowName, flow.conditions, nextFlowName);
 	});
 
