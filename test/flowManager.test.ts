@@ -16,7 +16,7 @@ test('updateInformation() - Should be sub flows = [changePlanFlow, planOnlyFlow]
 	await flowManagerAPI.updateInformation();
 	const subFlows = flowManagerAPI.getSubFlowTypes();
 
-	expect(subFlows).toMatchObject(['changePlanFlow', 'planOnlyFlow']);
+	expect(subFlows).toMatchObject(['planOnlyFlow', 'changePlanFlow']);
 });
 
 test('setCurrentStep(\'STEP_T\') - Should be STEP_T', async () => {

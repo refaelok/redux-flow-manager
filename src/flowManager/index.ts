@@ -129,7 +129,7 @@ export default class FlowManagerAPI {
 		if (
 			currentStepBeforeCalculate !== result.currentStep
 			|| nextStepBeforeCalculate !== result.nextStep
-			|| !_.isEqual(stepsBeforeCalculate.sort(), result.steps?.sort())
+			|| !_.isEqual(stepsBeforeCalculate, result.steps)
 		) {
 			StoreAPI.updateStepsInformation(result);
 		}

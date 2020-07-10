@@ -48,7 +48,7 @@ export const onFinal = (context: SubFlowMachineContext) => {
 	const flowType = StoreAPI.getFlowType();
 	const { subFlowTypes } = context;
 
-	if (!_.isEqual(storeSubFlowTypes.sort(), subFlowTypes.sort()) && flowType) {
+	if (!_.isEqual(storeSubFlowTypes, subFlowTypes) && flowType) {
 		StoreAPI.setSubFlowTypes(context.subFlowTypes);
 	}
 
