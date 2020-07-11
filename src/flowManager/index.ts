@@ -136,7 +136,7 @@ export default class FlowManagerAPI {
 	}
 
 	public nextStep(step?: string) {
-		if (this.isLastStep()) {
+		if (!step && this.isLastStep()) {
 			return FINAL_STEP_VALUE;
 		}
 
