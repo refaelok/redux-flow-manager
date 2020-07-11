@@ -15,7 +15,8 @@ export const onCheckStart = (context: SubFlowMachineContext, event: any, flowNam
 };
 
 export const onCheck = (context: SubFlowMachineContext, event: any, onCheckHandler: Function) => {
-	return onCheckHandler(context, event);
+	const state = StoreAPI.store.getState();
+	return onCheckHandler(state, context, event);
 };
 
 export const onCheckError = (
