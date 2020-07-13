@@ -106,14 +106,20 @@ export default class FlowManagerAPI {
 		return this.subFlowMachine.machineConfig;
 	}
 
-	public async startFlow(flowType: string, currentStep: string, autoUpdate?: boolean) {
+	public async startFlow(flowType: string, currentStep: string, autoUpdate?: boolean, debounceTime?: number) {
 		StoreAPI.startFlow(flowType, currentStep);
 
 		await this.updateInformation();
 
+		const debounceUpdateInformation = _.debounce(
+			this.updateInformation.bind(this),
+			debounceTime || 100,
+			{ leading: true, trailing: false }
+		);
+
 		if (autoUpdate) {
 			this.unsubscribe = StoreAPI.store.subscribe(() => {
-				this.updateInformation();
+				debounceUpdateInformation();
 			});
 		}
 	}

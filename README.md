@@ -134,7 +134,7 @@ All the API methods of flow manager describe below.
 
 ## Start and End Flow
 
-### async startFlow(flowType, autoUpdate, currentStep)
+### async startFlow(flowType, autoUpdate, currentStep, debounceTime)
 
 Start flow is used when your app should initial the main flow type in the store.
 That flow type represent a set of sub flow types in your [Flows Configuration](#flows-configuration)
@@ -146,6 +146,7 @@ That flow type represent a set of sub flow types in your [Flows Configuration](#
 | `flowType` | string | Required | undefined | The flow type that represent a set of sub flow types [Flows Configuration](#flows-configuration) |
 | `currentStep` | string | Required | undefined | Initial specific step by start the flow instead of the first step that define in steps array |
 | `autoUpdate` | boolean | Optional | undefined | Optionally pass indicate to automatic run state machine calculator to calculate the flow information data for any change in store |
+| `debounceTime` | boolean | Optional | undefined | Optionally pass indicate how many time to bounce between auto updates |
 
 ### endFlow()
 
