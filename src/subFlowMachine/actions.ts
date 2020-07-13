@@ -2,13 +2,22 @@ import * as _ from 'lodash';
 import { SubFlowMachineContext } from './types';
 import StoreAPI from '../store';
 
-export const onCheckStart = (context: SubFlowMachineContext, event: any, flowName: string) => {
-	return new Promise((resolve) => {
+export const onCheckStart = (
+	context: SubFlowMachineContext, event: any, flowName: string, runInFlowTypes?: Array<string>
+) => {
+	return new Promise((resolve, reject) => {
 		const subFlows = StoreAPI.getSubFlows() || [];
+		const flowType = StoreAPI.getFlowType();
 
 		context.currentFlowToCheck = flowName;
 		context.subFlowTypes = subFlows;
 		context.error = false;
+
+		// check if this machine should run by the flow type condition
+		if (runInFlowTypes && !runInFlowTypes.includes(flowType)) {
+			context.error = true;
+			return reject();
+		}
 
 		return resolve();
 	});

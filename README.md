@@ -226,8 +226,9 @@ If all conditions of a sub flow pass, then this sub flow added to the subFlowTyp
 
 Flow Object Properties:
 
-- `flowName: string` - unique name of the sub flow type
-- `conditions: array` - an array of Condition Object
+- `flowName: string` - unique name of the **sub** flow type
+- `runInFlowTypes: array<string>` - define lise of main flowTypes that this set of conditions will run in
+- `conditions: array<condition>` - an array of Condition Object
 - `conditionName: string` - the name of the condition
 - `onCheck: function` - a `promise` function that return `resolve` when the condition success and `reject` if the condition should be failed
 - `mandatory: boolean` - optional property. define if to remove that sub flow from the array if this condition failed. true by default.
@@ -237,46 +238,48 @@ The checks will run by that order.
 
 ```js
 const flowsConfig = [
-	{
-		flowName: 'planOnlyFlow',
-		conditions: [
-			{
-				conditionName: 'conditionA',
-				onCheck: conditionA
-			},
-			{
-				conditionName: 'conditionB',
-				onCheck: conditionB,
-				mandatory: false
-			}
-		]
-	},
-	{
-		flowName: 'onlyAccessoryFlow',
-		conditions: [
-			{
-				conditionName: 'conditionC',
-				onCheck: conditionC
-			},
-			{
-				conditionName: 'conditionD',
-				onCheck: conditionD
-			}
-		]
-	},
-	{
-		flowName: 'changePlanFlow',
-		conditions: [
-			{
-				conditionName: 'conditionA',
-				onCheck: conditionA
-			},
-			{
-				conditionName: 'conditionD',
-				onCheck: conditionD
-			}
-		]
-	}
+    {
+        flowName: 'planOnlyFlow',
+        conditions: [
+            {
+                conditionName: 'conditionA',
+                onCheck: conditionA
+            },
+            {
+                conditionName: 'conditionB',
+                onCheck: conditionB,
+                mandatory: false
+            }
+        ]
+    },
+    {
+        flowName: 'onlyAccessoryFlow',
+        runInFlowTypes: ['COP'], // this onlyAccessoryFlow check will run only for main COP flowType
+        conditions: [
+            {
+                conditionName: 'conditionC',
+                onCheck: conditionC
+            },
+            {
+                conditionName: 'conditionD',
+                onCheck: conditionD
+            }
+        ]
+    },
+    {
+        flowName: 'changePlanFlow',
+        runInFlowTypes: ['CHQ'],
+        conditions: [
+            {
+                conditionName: 'conditionA',
+                onCheck: conditionA
+            },
+            {
+                conditionName: 'conditionD',
+                onCheck: conditionD
+            }
+        ]
+    }
 ];
 ```
 

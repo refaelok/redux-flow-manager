@@ -8,6 +8,7 @@ export interface SubFlowMachineContext {
 
 export interface SubFlow {
 	flowName: string;
+	runInFlowTypes?: Array<string>;
 	conditions: Array<Condition>;
 }
 

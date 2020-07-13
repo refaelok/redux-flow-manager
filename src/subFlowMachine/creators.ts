@@ -45,7 +45,9 @@ export const createConditions = (conditions: Array<Condition>) => {
 	return Object.assign({}, ...createdConditions);
 };
 
-export const createFlow = (flowName: string, conditions: Array<Condition>, nextFlowName?: string) => {
+export const createFlow = (
+	flowName: string, conditions: Array<Condition>, nextFlowName?: string, runInFlowTypes?: Array<string>
+) => {
 	const states = createConditions(conditions);
 
 	return {
@@ -56,8 +58,11 @@ export const createFlow = (flowName: string, conditions: Array<Condition>, nextF
 				checkStart: {
 					invoke: {
 						id: flowName,
-						src: (context: SubFlowMachineContext, event: any) => onCheckStart(context, event, flowName),
-						onDone: 'checkFlow'
+						src: (context: SubFlowMachineContext, event: any) => {
+							return onCheckStart(context, event, flowName, runInFlowTypes);
+						},
+						onDone: 'checkFlow',
+						onError: 'checkDone'
 					}
 				},
 				checkFlow: {
@@ -90,7 +95,7 @@ export const createFlows = (flowsConfig: SubFlowsConfig) => {
 			throw new Error(`The sub flow ${flow.flowName} must include at least one condition.`);
 		}
 
-		return createFlow(flow.flowName, flow.conditions, nextFlowName);
+		return createFlow(flow.flowName, flow.conditions, nextFlowName, flow.runInFlowTypes);
 	});
 
 	return Object.assign({}, ...flows);
@@ -103,6 +108,7 @@ export const createMachineConfig = (flowsConfig: SubFlowsConfig) => {
 		id: 'FlowManager',
 		initial: flowsConfig[0].flowName,
 		context: {
+			runInFlowTypes: flowsConfig[0].runInFlowTypes,
 			currentFlowToCheck: '',
 			error: false
 		},

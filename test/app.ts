@@ -28,6 +28,7 @@ const createApp = (withConditionsLogs = false) => {
 		},
 		{
 			flowName: 'onlyAccessoryFlow',
+			runInFlowTypes: ['COP'],
 			conditions: [
 				{
 					conditionName: 'conditionC',
@@ -41,6 +42,7 @@ const createApp = (withConditionsLogs = false) => {
 		},
 		{
 			flowName: 'changePlanFlow',
+			runInFlowTypes: ['CHQ'],
 			conditions: [
 				{
 					conditionName: 'conditionA',
