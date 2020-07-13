@@ -233,6 +233,12 @@ Flow Object Properties:
 - `onCheck: function` - a `promise` function that return `resolve` when the condition success and `reject` if the condition should be failed
 - `mandatory: boolean` - optional property. define if to remove that sub flow from the array if this condition failed. true by default.
 
+Each Condition function get in props:
+
+- `state` - the current state in the store.
+- `context` - the current context in the state machine.
+- `event` - the state machine event who invoke that condition
+
 **NOTE** The Order of the Flow Objects in the array are matter.
 The checks will run by that order.
 
