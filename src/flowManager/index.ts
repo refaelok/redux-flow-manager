@@ -113,7 +113,8 @@ export default class FlowManagerAPI {
 
 		const debounceUpdateInformation = _.debounce(
 			this.updateInformation.bind(this),
-			debounceTime || 250
+			debounceTime || 250,
+			{ leading: true }
 		);
 
 		if (autoUpdate) {
