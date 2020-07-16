@@ -1,6 +1,6 @@
 {
   "name": "redux-flow-manager",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "Flow Manager System Base",
   "main": "dist/index.js",
   "module": "lib/index.js",
@@ -44,9 +44,7 @@
   "author": "refaeloknin@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@types/debounce": "^1.2.0",
-    "debounce": "^1.2.0",
-    "lodash": "4.17.15",
+    "lodash": "~4.17.19",
     "redux": "4.0.5",
     "xstate": "4.10.0"
   },
