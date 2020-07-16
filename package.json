@@ -46,7 +46,7 @@
   "dependencies": {
     "@types/debounce": "^1.2.0",
     "debounce": "^1.2.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "redux": "4.0.5",
     "xstate": "4.10.0"
   },
