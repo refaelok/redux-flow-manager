@@ -3,7 +3,7 @@ import { devToolsEnhancer } from 'redux-devtools-extension';
 import CreateFlowManagerAPI, { flowManagerReducer } from '../src';
 import { conditionExampleTemplate } from './conditions';
 
-const createApp = (withConditionsLogs = false) => {
+const createApp = (withConditionsLogs = false, singleApp = true): any => {
 	/** * Conditions Promises ** */
 	const conditionA = conditionExampleTemplate(true, 'conditionA', withConditionsLogs);
 	const conditionB = conditionExampleTemplate(false, 'conditionB', withConditionsLogs);
@@ -98,7 +98,17 @@ const createApp = (withConditionsLogs = false) => {
 
 	const store = createStore(rootReducer, devToolsEnhancer({}));
 
-	return CreateFlowManagerAPI(store, 'flowManager', flowsConfig, stepsConfig);
+	if (singleApp) {
+		return CreateFlowManagerAPI(store, 'flowManager', flowsConfig, stepsConfig)
+	}
+
+	const flowManagerApi_1 = CreateFlowManagerAPI(store, 'flowManager', flowsConfig, stepsConfig, 'test_1');
+	const flowManagerApi_2 = CreateFlowManagerAPI(store, 'flowManager', flowsConfig, stepsConfig, 'test_2');
+
+	return {
+		flowManagerApi_1,
+		flowManagerApi_2
+	}
 };
 
 export default createApp;

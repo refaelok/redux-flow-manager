@@ -4,20 +4,23 @@ import {
 	Interpreter,
 	AnyEventObject
 } from 'xstate';
+import StoreAPI from '../store';
 import { SubFlowsConfig } from './types';
-import { createMachineConfig } from './creators';
+import CreateMachineConfig from './creators';
 
 class FlowMachineAPI {
+	readonly storeApi: StoreAPI;
 	readonly service: Interpreter<any, any, AnyEventObject>;
 	public machineConfig: any;
 
-	constructor(flowsConfig: SubFlowsConfig) {
+	constructor(flowsConfig: SubFlowsConfig, storeApi: StoreAPI) {
+		this.storeApi = storeApi;
 		this.service = this.initialMachine(flowsConfig);
 	}
 
 	initialMachine(flowsConfig: any) {
-		const config = createMachineConfig(flowsConfig);
-		const stateMachine = Machine(config);
+		const config = new CreateMachineConfig(flowsConfig, this.storeApi);
+		const stateMachine = Machine(config.createConfig());
 
 		this.machineConfig = stateMachine.config;
 		return interpret(stateMachine);

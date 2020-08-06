@@ -1,4 +1,5 @@
 import {
+	INITIAL_STATE,
 	START_FLOW_TYPE,
 	END_FLOW_TYPE,
 	SET_SUB_FLOW_TYPE,
@@ -8,6 +9,15 @@ import {
 	FlowManagerActionTypes,
 	UpdateStepsInformationInput
 } from './types';
+
+export function initialState(nestedSlice?: string): FlowManagerActionTypes {
+	return {
+		type: INITIAL_STATE,
+		payload: {
+			nestedSlice
+		}
+	};
+}
 
 export function startFlowAction(flowType: string, currentStep?: string): FlowManagerActionTypes {
 	return {
@@ -21,7 +31,8 @@ export function startFlowAction(flowType: string, currentStep?: string): FlowMan
 
 export function endFlowAction(): FlowManagerActionTypes {
 	return {
-		type: END_FLOW_TYPE
+		type: END_FLOW_TYPE,
+		payload: {}
 	};
 }
 

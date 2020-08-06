@@ -1,6 +1,6 @@
 import createApp from './app';
 
-const flowManagerAPI = createApp();
+const flowManagerAPI = createApp(false, true);
 
 test('startFlow(\'CHQ\', true, \'STEP_R\') - Should be flowType = CHQ; currentStep = STEP_R', async () => {
 	await flowManagerAPI.startFlow('CHQ', 'STEP_R', true);

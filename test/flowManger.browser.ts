@@ -1,29 +1,38 @@
 import createApp from './app';
+import FlowManagerAPI from '../src/flowManager';
 
-const flowManagerAPI = createApp(true);
+const {
+	flowManagerApi_1,
+	flowManagerApi_2
+} = createApp(true, false);
 
-const startApp = async () => {
+const startApp = async (flowManagerApi: FlowManagerAPI) => {
 
-	await flowManagerAPI.startFlow('CHQ', 'STEP_R', true);
-	await flowManagerAPI.updateInformation();
-	const subFlowTypes = flowManagerAPI.getSubFlowTypes();
+	// Machine 1
+	await flowManagerApi.startFlow('CHQ', 'STEP_R', true);
+	await flowManagerApi.updateInformation();
+	const subFlowTypes = flowManagerApi.getSubFlowTypes();
 
-	await flowManagerAPI.nextStep('STEP_T');
-	const nextStep = flowManagerAPI.getNextStep();
-	const steps = flowManagerAPI.getSteps();
-	const machineConfig = flowManagerAPI.getMachineFlowConfig();
+	await flowManagerApi.nextStep('STEP_T');
+	const nextStep = flowManagerApi.getNextStep();
+	const steps = flowManagerApi.getSteps();
+	const machineConfig = flowManagerApi.getMachineFlowConfig();
 
 	console.log('subFlowTypes, nextStep, steps', subFlowTypes, nextStep, steps);
 	console.log('machine config', machineConfig);
 
-	await flowManagerAPI.nextStep('STEP_R');
-	console.log('next step again', flowManagerAPI.getNextStep());
+	await flowManagerApi.nextStep('STEP_R');
+	console.log('next step again', flowManagerApi.getNextStep());
 
-	await flowManagerAPI.updateInformation();
+	await flowManagerApi.updateInformation();
 
-	flowManagerAPI.endFlow();
+	flowManagerApi.endFlow();
 };
 
-startApp().then(() => {
+startApp(flowManagerApi_1).then(() => {
+	console.log('Test Done');
+});
+
+startApp(flowManagerApi_2).then(() => {
 	console.log('Test Done');
 });

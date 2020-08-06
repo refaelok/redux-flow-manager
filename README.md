@@ -127,6 +127,7 @@ All the API methods of flow manager describe below.
 | `sliceName` | string | Required | undefined | the name of the reducer slice |
 | `flowsConfig` | SubFlowsConfig | Required | undefined | [Flows Configuration](#flows-configuration)) |
 | `stepsConfig` | StepsConfig | Required | undefined | [Steps Configuration](#steps-configuration)) |
+| `nestedSlice` | string | Optional | undefined | Set the flow manager data under specific nested slice in the store |
 
 
 

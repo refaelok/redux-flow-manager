@@ -7,18 +7,20 @@ import { UpdateStepsInformationInput } from '../store/types';
 const FINAL_STEP_VALUE = 'FINAL';
 
 export default class FlowManagerAPI {
+	private readonly storeApi: StoreAPI;
 	private readonly subFlowMachine: SubFlowMachine;
 	private readonly stepsConfig: any;
 	private unsubscribe: any;
 
-	constructor(flowsConfig: SubFlowsConfig, stepsConfig: any) {
-		this.subFlowMachine = new SubFlowMachine(flowsConfig);
+	constructor(flowsConfig: SubFlowsConfig, stepsConfig: any, storeApi: StoreAPI) {
+		this.storeApi = storeApi;
+		this.subFlowMachine = new SubFlowMachine(flowsConfig, storeApi);
 		this.stepsConfig = stepsConfig;
 	}
 
 	/* private methods */
 	private calculateSubFlowTypes() {
-		const flowType = StoreAPI.getFlowType();
+		const flowType = this.storeApi.getFlowType();
 		if (!flowType) {
 			throw new Error(
 				// eslint-disable-next-line max-len
@@ -32,7 +34,7 @@ export default class FlowManagerAPI {
 			service.stop();
 
 			service.start().onDone(() => {
-				return resolve(StoreAPI.getSubFlows());
+				return resolve(this.storeApi.getSubFlows());
 			});
 		});
 	}
@@ -85,8 +87,8 @@ export default class FlowManagerAPI {
 	}
 
 	private setCurrentStep(currentStep: string) {
-		const flowType = StoreAPI.getFlowType();
-		const steps = StoreAPI.getSteps();
+		const flowType = this.storeApi.getFlowType();
+		const steps = this.storeApi.getSteps();
 
 		if (!flowType) {
 			throw new Error(
@@ -95,7 +97,7 @@ export default class FlowManagerAPI {
 			);
 		}
 
-		StoreAPI.updateStepsInformation({
+		this.storeApi.updateStepsInformation({
 			currentStep,
 			nextStep: this.calculateNextStep(steps, currentStep)
 		});
@@ -107,7 +109,7 @@ export default class FlowManagerAPI {
 	}
 
 	public async startFlow(flowType: string, currentStep: string, autoUpdate?: boolean, debounceTime?: number) {
-		StoreAPI.startFlow(flowType, currentStep);
+		this.storeApi.startFlow(flowType, currentStep);
 
 		await this.updateInformation();
 
@@ -117,17 +119,17 @@ export default class FlowManagerAPI {
 		);
 
 		if (autoUpdate) {
-			this.unsubscribe = StoreAPI.store.subscribe(() => {
+			this.unsubscribe = this.storeApi.store.subscribe(() => {
 				debounceUpdateInformation();
 			});
 		}
 	}
 
 	public async updateInformation() {
-		if (StoreAPI.getIsActive()) {
-			const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
-			const nextStepBeforeCalculate = StoreAPI.getNextStep();
-			const stepsBeforeCalculate = StoreAPI.getSteps();
+		if (this.storeApi.getIsActive()) {
+			const currentStepBeforeCalculate = this.storeApi.getCurrentStep();
+			const nextStepBeforeCalculate = this.storeApi.getNextStep();
+			const stepsBeforeCalculate = this.storeApi.getSteps();
 
 			await this.calculateSubFlowTypes();
 			const result = this.calculateStepInformation();
@@ -137,7 +139,7 @@ export default class FlowManagerAPI {
 				|| nextStepBeforeCalculate !== result.nextStep
 				|| !_.isEqual(stepsBeforeCalculate, result.steps)
 			) {
-				StoreAPI.updateStepsInformation(result);
+				this.storeApi.updateStepsInformation(result);
 			}
 		}
 	}
@@ -169,27 +171,27 @@ export default class FlowManagerAPI {
 
 		service.stop();
 
-		StoreAPI.endFlow();
+		this.storeApi.endFlow();
 	}
 
 	/* Selectors */
 	public getFlowType() {
-		return StoreAPI.getFlowType();
+		return this.storeApi.getFlowType();
 	}
 
 	public getSubFlowTypes() {
-		return StoreAPI.getSubFlows();
+		return this.storeApi.getSubFlows();
 	}
 
 	public getCurrentStep() {
-		return StoreAPI.getCurrentStep();
+		return this.storeApi.getCurrentStep();
 	}
 
 	public getSteps() {
-		return StoreAPI.getSteps();
+		return this.storeApi.getSteps();
 	}
 
 	public getNextStep() {
-		return StoreAPI.getNextStep();
+		return this.storeApi.getNextStep();
 	}
 }

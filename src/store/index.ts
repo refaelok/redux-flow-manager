@@ -1,4 +1,5 @@
 import { Store } from 'redux';
+import * as _ from 'lodash';
 import { UpdateStepsInformationInput } from './types';
 import {
 	flowTypesSelector,
@@ -9,6 +10,7 @@ import {
 	getIsActiveSelector
 } from './selectors';
 import {
+	initialState,
 	startFlowAction,
 	endFlowAction,
 	addSubFlowTypeAction,
@@ -20,18 +22,27 @@ import {
 class StoreAPI {
 	public store: Store;
 	public sliceName: string;
+	public nestedSlice?: string;
 
-	public setStore(store: Store, sliceName: string) {
+	constructor(store: Store, sliceName: string, nestedSlice?: string) {
 		this.store = store;
 		this.sliceName = sliceName;
+		this.nestedSlice = nestedSlice;
+
+		this.dispatch(initialState(this.nestedSlice));
 	}
 
 	private dispatch(action: any) {
-		this.store.dispatch(action);
+		const newAction = action;
+		if (!newAction.payload) newAction.payload = {};
+		newAction.payload.nestedSlice = this.nestedSlice;
+
+		this.store.dispatch(newAction);
 	}
 
 	private getFlowManagerState() {
-		return this.store.getState()[this.sliceName];
+		const pathInStore = this.nestedSlice ? `${this.sliceName}.${this.nestedSlice}` : this.sliceName;
+		return _.get(this.store.getState(), pathInStore);
 	}
 
 	/* Selectors */
@@ -85,4 +96,4 @@ class StoreAPI {
 	}
 }
 
-export default new StoreAPI();
+export default StoreAPI;
