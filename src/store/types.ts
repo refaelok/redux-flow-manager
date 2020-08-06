@@ -11,6 +11,7 @@ export interface FlowManagerState {
 	currentStep: string;
 	nextStep: string;
 	steps: Array<string>;
+	isActive: boolean;
 }
 
 export interface UpdateStepsInformationInput {

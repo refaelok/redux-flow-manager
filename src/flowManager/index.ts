@@ -124,19 +124,21 @@ export default class FlowManagerAPI {
 	}
 
 	public async updateInformation() {
-		const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
-		const nextStepBeforeCalculate = StoreAPI.getNextStep();
-		const stepsBeforeCalculate = StoreAPI.getSteps();
+		if (StoreAPI.getIsActive()) {
+			const currentStepBeforeCalculate = StoreAPI.getCurrentStep();
+			const nextStepBeforeCalculate = StoreAPI.getNextStep();
+			const stepsBeforeCalculate = StoreAPI.getSteps();
 
-		await this.calculateSubFlowTypes();
-		const result = this.calculateStepInformation();
+			await this.calculateSubFlowTypes();
+			const result = this.calculateStepInformation();
 
-		if (
-			currentStepBeforeCalculate !== result.currentStep
-			|| nextStepBeforeCalculate !== result.nextStep
-			|| !_.isEqual(stepsBeforeCalculate, result.steps)
-		) {
-			StoreAPI.updateStepsInformation(result);
+			if (
+				currentStepBeforeCalculate !== result.currentStep
+				|| nextStepBeforeCalculate !== result.nextStep
+				|| !_.isEqual(stepsBeforeCalculate, result.steps)
+			) {
+				StoreAPI.updateStepsInformation(result);
+			}
 		}
 	}
 

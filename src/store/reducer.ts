@@ -16,7 +16,8 @@ const initialState: FlowManagerState = {
 	subFlowTypes: [],
 	currentStep: '',
 	nextStep: '',
-	steps: []
+	steps: [],
+	isActive: false
 };
 
 export function flowManagerReducer(
@@ -29,10 +30,11 @@ export function flowManagerReducer(
 			const newState = { ...state };
 			newState.flowType = flowType;
 			newState.currentStep = currentStep;
+			newState.isActive = true;
 			return newState;
 		}
 		case END_FLOW_TYPE: {
-			return { ...initialState, subFlowTypes: [], steps: [] };
+			return { ...initialState, subFlowTypes: [], steps: [], isActive: false };
 		}
 		case SET_SUB_FLOW_TYPE: {
 			const newState = { ...state };

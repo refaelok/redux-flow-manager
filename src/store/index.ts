@@ -6,6 +6,7 @@ import {
 	getCurrentStepSelector,
 	getNextStepSelector,
 	getStepsSelector,
+	getIsActiveSelector
 } from './selectors';
 import {
 	startFlowAction,
@@ -52,6 +53,10 @@ class StoreAPI {
 
 	public getSteps() {
 		return getStepsSelector(this.getFlowManagerState());
+	}
+
+	public getIsActive() {
+		return getIsActiveSelector(this.getFlowManagerState());
 	}
 
 	/* Actions */
