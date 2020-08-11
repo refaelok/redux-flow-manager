@@ -16,6 +16,17 @@ export default class FlowManagerAPI {
 		this.storeApi = storeApi;
 		this.subFlowMachine = new SubFlowMachine(flowsConfig, storeApi);
 		this.stepsConfig = stepsConfig;
+
+		this.getMachineFlowConfig = this.getMachineFlowConfig.bind(this);
+		this.updateInformation = this.updateInformation.bind(this);
+		this.nextStep = this.nextStep.bind(this);
+		this.isLastStep = this.isLastStep.bind(this);
+		this.endFlow = this.endFlow.bind(this);
+		this.getFlowType = this.getFlowType.bind(this);
+		this.getSubFlowTypes = this.getSubFlowTypes.bind(this);
+		this.getCurrentStep = this.getCurrentStep.bind(this);
+		this.getSteps = this.getSteps.bind(this);
+		this.getNextStep = this.getNextStep.bind(this);
 	}
 
 	/* private methods */

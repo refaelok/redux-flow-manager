@@ -9,7 +9,14 @@ const {
 const startApp = async (flowManagerApi: FlowManagerAPI) => {
 
 	// Machine 1
+	const {
+		getFlowType
+	} = flowManagerApi;
+
 	await flowManagerApi.startFlow('CHQ', 'STEP_R', true);
+	const flowType = getFlowType();
+	console.log(flowType);
+
 	await flowManagerApi.updateInformation();
 	const subFlowTypes = flowManagerApi.getSubFlowTypes();
 
