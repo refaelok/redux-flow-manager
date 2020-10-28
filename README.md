@@ -1,4 +1,8 @@
 # redux-flow-manager
+Flow Manager helps you manage flow information details and steps (such as showing the next step in the flow),<br/>
+for complicated website relays and flows, i.e eCommerce, buy flows, etc.<br/>
+Flow Manger is using XState for state machine to calculate current position in the flow and where you need to go next.<br/>
+<br/>
 Flow Manager help you to manage flow information details and steps ( such what is the next step in the flow )
 <br/>
 for complicated website relay onf lows such a eCommerce, buy flow etc ..
@@ -7,12 +11,10 @@ Flow Manger using [XState](https://github.com/davidkpiano/xstate) for state mach
 
 
 ## Motivation
-
-redux-flow-manager created to help you manage application based flows. <br />
-In the flow diagram below you can see example of one flow that can be in your application. <br />
-In that flow diagram, each **color is sub flow**, and green and red steps are start and end flow. <br />
-Redux Flow Manager help you to manage this sub flows and get decisions where you are and where you need to go.<br />
-
+redux-flow-manager was created to help you manage application based flows. <br />
+In the flow diagram below you can see an example of one representative flow such as you might find in your application.<br />
+In that flow diagram, each color is a sub flow, and the green and red steps represent start and end of the flow. <br />
+Redux Flow Manager helps you manage these sub flows and understand where you are and where you need to go.<br />
 <br />
 
 <a href="assets/FlowDiagram.png" rel="some text">![Foo](./assets/FlowDiagram.png)</a>
