@@ -7,17 +7,22 @@ export default (subFlowsJson: any, flowsConditions: any) => subFlowsJson.map((su
 				const newCondition = { ...condition };
 				const onCheck = flowsConditions[condition?.onCheck];
 
-				if (onCheck) newCondition.onCheck = onCheck;
+				if (!onCheck || typeof onCheck !== 'function') {
+					// eslint-disable-next-line max-len
+					throw new Error(`Error in parseSubFlowsJSON function - Your onCheck '${condition?.onCheck}' condition is missing in flowsConditions object or is not a function. Please check your flows conditions object you provide to parseSubFlowsJSON`);
+				}
+
+				newCondition.onCheck = onCheck;
 				delete newCondition?.requirePath;
 
 				return newCondition;
 			} catch (e) {
-				return condition;
+				throw new Error(e);
 			}
 		});
 
 		return newSubFlow;
 	} catch (e) {
-		return subFlow;
+		throw new Error(e);
 	}
 });
